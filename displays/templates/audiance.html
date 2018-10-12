@@ -5,30 +5,40 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
 </head>
-<body>
+<body style="background-image:url('https://cdn.dribbble.com/users/77111/screenshots/2603500/attachments/519183/desktop_wallpaper2_by_maria_shanina.png');background-position: center;background-size: cover; text-align:center; padding:0;margin:0">
 	
 	<!--Top section-->
-	<div id="rankings" class="columns">
+	<!--<br>-->
+	<!--<h1 class="title is-1">Rankings</h1>-->
+	<!--<hr>-->
+	<!--<div id="rankings" class="columns" style="height:89.1%;width:100%;padding:0;margin:0">-->
 		<!--Left-->
-		<div id="panel1" class="column">
+	<!--	<div id="panel1" class="column" style="background-color:#d71c23">-->
 			
-		</div>
+	<!--	</div>-->
 		
 		<!--Right-->
-		<div id="panel2" class="column">
+	<!--	<div id="panel2" class="column" style="background-color:#d71c23">-->
 			
-		</div>
-	</div>
+	<!--	</div>-->
+	<!--</div>-->
 	
 	<!--Scoreboard containers-->
-	<div class="columns" style="position:fixed;bottom:0;width:100%;padding:15">
+	
+	<!--Event Title-->
+	<div>
+		<br><br><br>
+	<h1 class="title is-1" style="color:white;font-size:100">Event Name</h1>
+	</div>
+	
+	<div class="columns" style="position:fixed;bottom:0;width:100%;padding:30;">
 	<div class="column"></div>
 	
 	<div class="column is-three-quarters">
 	<!--Scoreboard-->
-	<div id="scoreboard" class="columns" style="padding:0;margin:0">
+	<div id="scoreboard" class="columns" style="padding:0;margin:0;box-shadow: 2px 2px 5px grey;">
 		<!--Red teams-->
-		<div id="red_teams" class="column is-one-fifth" style="text-align:center">
+		<div id="red_teams" class="column " style="text-align:center;background-color:white">
 			<h1 id="red1">????</h1>
 			<h1 id="red2">????</h1>
 			<h1 id="red3">????</h1>
@@ -37,24 +47,24 @@
 		<!--Red score-->
 		<div id="red_score" class="column is-one-quarter" style="background-color:#ff333f;color:white;text-align:center;display: inline-block;">
 			<br>
-			<h1 class="title" style="color:white;margin:0">{red.score}</h1>
+			<h1 class="title" style="color:white;margin:0">00</h1>
 			<br>
 		</div>
 		
 		<!--Centre Logo-->
-		<div id="Logo" class="column">
+		<div id="Logo" class="column is-one-fifth" style="background-color:white">
 			
 		</div>
 		
 		<!--Blue Score-->
 		<div id="blue_score" class="column is-one-quarter" style="background-color:#1a7bfe;color:white;text-align:center;display: inline-block;">
 			<br>
-			<h1 class="title" style="color:white;margin:0">{blue.score}</h1>
+			<h1 class="title" style="color:white;margin:0">00</h1>
 			<br>
 		</div>
 		
 		<!--Blue teams-->
-		<div id="blue_teams" class="column is-one-fifth" style="text-align:center">
+		<div id="blue_teams" class="column " style="text-align:center;background-color:white">
 			<h1 id="blue1">????</h1>
 			<h1 id="blue2">????</h1>
 			<h1 id="blue3">????</h1>
@@ -63,7 +73,7 @@
 	</div>
 	
 	<!--Footer-->
-	<div id="footer" style="background-color:#2f322f;color:white">
+	<div id="footer" style="background-color:#2f322f;color:white; text-align:right; padding-right:10;box-shadow: 2px 2px 5px grey;">
 		<span><h1>ThriftyField</h1></span>
 	</div>
 	</div>
