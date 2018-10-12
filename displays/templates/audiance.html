@@ -4,31 +4,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
   <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <!--<meta http-equiv="refresh" content="0.01">-->
 </head>
 <body style="background-image:url('https://cdn.dribbble.com/users/77111/screenshots/2603500/attachments/519183/desktop_wallpaper2_by_maria_shanina.png');background-position: center;background-size: cover; text-align:center; padding:0;margin:0">
-	
-	<!--Top section-->
-	<!--<br>-->
-	<!--<h1 class="title is-1">Rankings</h1>-->
-	<!--<hr>-->
-	<!--<div id="rankings" class="columns" style="height:89.1%;width:100%;padding:0;margin:0">-->
-		<!--Left-->
-	<!--	<div id="panel1" class="column" style="background-color:#d71c23">-->
-			
-	<!--	</div>-->
-		
-		<!--Right-->
-	<!--	<div id="panel2" class="column" style="background-color:#d71c23">-->
-			
-	<!--	</div>-->
-	<!--</div>-->
-	
-	<!--Scoreboard containers-->
-	
+
 	<!--Event Title-->
 	<div>
 		<br><br><br>
-	<h1 class="title is-1" style="color:white;font-size:100">Event Name</h1>
+	<h1 class="title is-1" style="color:white;font-size:100">{event.name}</h1>
 	</div>
 	
 	<div class="columns" style="position:fixed;bottom:0;width:100%;padding:30;">
@@ -80,4 +63,31 @@
 	
 	<div class="column"></div>
 	</div>
+	<script>
+		var eventSource = new EventSource('/subscribe');
+		eventSource.onmessage = function(m) {
+			var a = JSON.parse(m);
+			console.log(a);
+		}
+	</script>
+	<!--
+	<script>
+	// get data from page
+	var red1 = document.getElementById("red1");
+	var red2 = document.getElementById("red2");
+	var red3 = document.getElementById("red3");
+	var blue1 = document.getElementById("blue1");
+	var blue2 = document.getElementById("blue2");
+	var blue3 = document.getElementById("blue3");
+		while(true){
+			// Get data from api
+			fetch("http://{field.addr}/api/teams/onfield")
+		  .then((resp) => resp.json()) // Transform the data into json
+		  .then(function(data) {
+		    // Create and append the li's to the ul
+		    console.log(resp["red"][1])
+		    })
+		}
+	</script>
+	-->
 </body>
