@@ -32,15 +32,19 @@ field = {
 }
 
 scores = {
-	"red":0,
-	"blue":0
+	"red":"00",
+	"blue":"00"
 }
 
 teams = {
-	"red":[0000,0000,0000],
-	"blue":[0000,0000,0000]
+	"red":["0000","0000","0000"],
+	"blue":["0000","0000","0000"]
 }
 
-time = 0.00
+time = 00
+start_time = 00
 
 stopservers = False
+
+game_enabled = False
+firsttick = False

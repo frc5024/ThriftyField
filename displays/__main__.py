@@ -81,7 +81,7 @@ class SSE(Thread):
 if __name__ == '__main__':
 	sseloop = SSE()
 	sseloop.start()
-	app.run(port=int(config["displayserv_port"]))
+	app.run(port=int(config["displayserv_port"]), host= '0.0.0.0')
 	# server = WSGIServer(("", config["displayserv_port"]), app)
 	# server.serve_forever()
 	

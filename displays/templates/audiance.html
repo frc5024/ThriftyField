@@ -30,19 +30,19 @@
 		<!--Red score-->
 		<div id="red_score" class="column is-one-quarter" style="background-color:#ff333f;color:white;text-align:center;display: inline-block;">
 			<br>
-			<h1 class="title" style="color:white;margin:0">00</h1>
+			<h1 class="title" style="color:white;margin:0" id="rscore">00</h1>
 			<br>
 		</div>
 		
 		<!--Centre Logo-->
 		<div id="Logo" class="column is-one-fifth" style="background-color:white">
-			
+			<h1 id="time" class="title is-1">00</h1>
 		</div>
 		
 		<!--Blue Score-->
 		<div id="blue_score" class="column is-one-quarter" style="background-color:#1a7bfe;color:white;text-align:center;display: inline-block;">
 			<br>
-			<h1 class="title" style="color:white;margin:0">00</h1>
+			<h1 class="title" style="color:white;margin:0" id="bscore">00</h1>
 			<br>
 		</div>
 		
@@ -67,17 +67,38 @@
 	function decode_utf8(s) {
   return decodeURIComponent(escape(s));
 }
+// Teams
 	var red1 = document.getElementById("red1");
 	var red2 = document.getElementById("red2");
 	var red3 = document.getElementById("red3");
 	var blue1 = document.getElementById("blue1");
 	var blue2 = document.getElementById("blue2");
 	var blue3 = document.getElementById("blue3");
+
+// scores
+var rs = document.getElementById("rscore");
+var bs = document.getElementById("bscore");
+
+var time = document.getElementById("time");
+
 		var eventSource = new EventSource('/subscribe');
 		eventSource.onmessage = function(m) {
 			var a = JSON.parse(m["data"].substring(2, m["data"].length-1));
-			console.log(a);
-			red1.innerHTML = a["teams"]["red"][0]
+			// console.log(a);
+			red1.innerHTML = a["teams"]["red"][0];
+			red2.innerHTML = a["teams"]["red"][1];
+			red3.innerHTML = a["teams"]["red"][2];
+			
+			blue1.innerHTML = a["teams"]["blue"][0];
+			blue2.innerHTML = a["teams"]["blue"][1];
+			blue3.innerHTML = a["teams"]["blue"][2];
+			
+			// scores
+			bs.innerHTML = a["scores"]["blue"];
+			rs.innerHTML = a["scores"]["red"];
+			
+			// time
+			time.innerHTML = a["time"]
 		}
 	</script>
 	<!--

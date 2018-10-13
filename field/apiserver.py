@@ -32,11 +32,24 @@ def gametime():
 @app.route("/api/getall")
 def getall():
 	#return json object
-	return str({"scores":globaldata.scores,"teams":globaldata.teams,"time":globaldata.time}).replace("\'", "\"")
+	return str({"scores":globaldata.scores,"teams":globaldata.teams,"time":int(globaldata.time)}).replace("\'", "\"")
 
-@app.route("/admin")
+@app.route("/admin", methods=["GET", "POST"])
 def admin():
 	template = open("./field/templates/admin.html", "r").read()
+	
+	if request.method == 'POST':
+		# Set the game state
+		print(request.form.get("start"))
+		if request.form.get("start"):
+			print("Enabled game")
+			globaldata.game_enabled = True
+			# print(globaldata.game_enabled)
+			# For resetting clock
+			globaldata.firsttick = True
+		elif request.form.get("stop"):
+			print("stopped game")
+			globaldata.game_enabled = False
 	
 	# if b3 in request.args:
 	globaldata.teams["red"][0] = request.args.get("r1")
@@ -50,4 +63,4 @@ def admin():
 
 # Start webserver
 if __name__ == '__main__':
-	app.run(port=int(config["field_api_port"]))
+	app.run(port=int(config["field_api_port"]), host= '0.0.0.0')
