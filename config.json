@@ -4,6 +4,7 @@
 	"field_api_addr":"127.0.0.1",
 	"field_combined":"http://127.0.0.1:8082",
 	"event":{
-		"name":"Test Event"
+		"name":"Test Event",
+		"teams":[5024, 2056, 4334, 20, 1, 254]
 	}
 }

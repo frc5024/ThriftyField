@@ -69,7 +69,8 @@ class SSE(Thread):
 			except:
 				print("Could not connect to field")
 			payload = requests.get(config["field_combined"]+"/api/getall").text
-			red.publish("gamedata", str([payload, i]))
+			# print(payload)
+			red.publish("gamedata", payload)
 			time.sleep(0.1)
 			i += 1
 	

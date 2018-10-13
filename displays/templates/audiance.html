@@ -64,10 +64,20 @@
 	<div class="column"></div>
 	</div>
 	<script>
+	function decode_utf8(s) {
+  return decodeURIComponent(escape(s));
+}
+	var red1 = document.getElementById("red1");
+	var red2 = document.getElementById("red2");
+	var red3 = document.getElementById("red3");
+	var blue1 = document.getElementById("blue1");
+	var blue2 = document.getElementById("blue2");
+	var blue3 = document.getElementById("blue3");
 		var eventSource = new EventSource('/subscribe');
 		eventSource.onmessage = function(m) {
-			var a = JSON.parse(m);
+			var a = JSON.parse(m["data"].substring(2, m["data"].length-1));
 			console.log(a);
+			red1.innerHTML = a["teams"]["red"][0]
 		}
 	</script>
 	<!--

@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import request
 import json
 import globaldata as globaldata
 
@@ -31,7 +32,21 @@ def gametime():
 @app.route("/api/getall")
 def getall():
 	#return json object
-	return str([globaldata.scores,globaldata.teams,globaldata.time])
+	return str({"scores":globaldata.scores,"teams":globaldata.teams,"time":globaldata.time}).replace("\'", "\"")
+
+@app.route("/admin")
+def admin():
+	template = open("./field/templates/admin.html", "r").read()
+	
+	# if b3 in request.args:
+	globaldata.teams["red"][0] = request.args.get("r1")
+	globaldata.teams["red"][1] = request.args.get("r2")
+	globaldata.teams["red"][2] = request.args.get("r3")
+	
+	globaldata.teams["blue"][0] = request.args.get("b1")
+	globaldata.teams["blue"][1] = request.args.get("b2")
+	globaldata.teams["blue"][2] = request.args.get("b3")
+	return template
 
 # Start webserver
 if __name__ == '__main__':
