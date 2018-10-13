@@ -7,6 +7,7 @@ driverStationTcpLinkTimeoutSec = 5
 driverStationUdpLinkTimeoutSec = 1
 maxTcpPacketBytes              = 4096
 
+allianceStationPositionMap = {"R1": 0, "R2": 1, "R3": 2, "B1": 3, "B2": 4, "B3": 5}
 
 class DriverStation(object):
 	def __init__(self, team: int, station: str, connection):
