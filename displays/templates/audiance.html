@@ -182,13 +182,13 @@ var abortlock = false;
 			time.innerHTML = a["time"]
 			
 			// Vaults
-			rl.innerHTML = a["field"]["vaultR"]["levitate_count"]
-			rb.innerHTML = a["field"]["vaultR"]["boost_count"]
-			rf.innerHTML = a["field"]["vaultR"]["force_count"]
+			rl.innerHTML = "L " +a["field"]["vaultR"]["levitate_count"]
+			rb.innerHTML = "B " +a["field"]["vaultR"]["boost_count"]
+			rf.innerHTML = "F " +a["field"]["vaultR"]["force_count"]
 			
-			bl.innerHTML = a["field"]["vaultB"]["levitate_count"]
-			bb.innerHTML = a["field"]["vaultB"]["boost_count"]
-			bf.innerHTML = a["field"]["vaultB"]["force_count"]
+			bl.innerHTML = a["field"]["vaultB"]["levitate_count"] + " L"
+			bb.innerHTML = a["field"]["vaultB"]["boost_count"] + " B"
+			bf.innerHTML = a["field"]["vaultB"]["force_count"] + " F"
 		}
 	</script>
 </body>
