@@ -42,16 +42,24 @@ svr.start()
 # report findings to globaldata
 
 # Start hardware
-field.init()
+fci = field.init()
 network.init()
 
 running = not globaldata.stopservers
 
+def writeStates(states):
+	globaldata.field["switchR"]["connected"] = states["rswitch"][1]
+	globaldata.field["switchR"]["state"] = states["rswitch"][0]
+	
+	globaldata.field["scale"]["connected"] = states["scale"][1]
+	globaldata.field["scale"]["connected"] = states["scale"][1]
+	
+	globaldata.field["switchB"]["connected"] = states["bswitch"][1]
+	globaldata.field["switchB"]["state"] = states["bswitch"][0]
+	
 
 while running:
 	if globaldata.game_enabled:
-		
-		# print("tick")
 		# Set up the clock
 		curr_time = datetime.now()
 		if globaldata.firsttick:
@@ -64,12 +72,14 @@ while running:
 		# When the game hits its time limit, do this:
 		if str(globaldata.time) == str(mt.duration["total"]):
 			globaldata.game_enabled = False
-			
-	# states = field.getStates()
-	# globaldata.writeStates(states)
+	
+	# Get states of game pieces even if game is stopped
+	## CURRENTLY REPLACED BY WEB INTERFACE
+	# states = field.getStates(fci)
+	# writeStates(states)
 	# globaldata.score = calcscore(states, globaldata.score)
 	# globaldata.time =
 
-# field.close()
+field.close(fci)
 print("Goodbye")
 exit(0)

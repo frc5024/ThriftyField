@@ -61,6 +61,37 @@ def admin():
 	globaldata.teams["blue"][2] = request.args.get("b3")
 	return template
 
+@app.route("/ref", methods=["GET", "POST"])
+def ref():
+	if request.method == 'POST':
+		print(request.form)
+		
+		# rswitch
+		if request.form.get("RL"):
+			globaldata.field["switchR"]["state"] = "backward"
+		if request.form.get("RC"):
+			globaldata.field["switchR"]["state"] = "centre"
+		if request.form.get("RR"):
+			globaldata.field["switchR"]["state"] = "forward"
+			
+		if request.form.get("SL"):
+			globaldata.field["scale"]["state"] = "backward"
+		if request.form.get("SC"):
+			globaldata.field["scale"]["state"] = "centre"
+		if request.form.get("SR"):
+			globaldata.field["scale"]["state"] = "forward"
+			
+		if request.form.get("BL"):
+			globaldata.field["switchB"]["state"] = "backward"
+		if request.form.get("BC"):
+			globaldata.field["switchB"]["state"] = "centre"
+		if request.form.get("BR"):
+			globaldata.field["switchB"]["state"] = "forward"
+	
+	template = open("./field/templates/ref.html", "r").read()
+	
+	return template
+
 # Start webserver
 if __name__ == '__main__':
 	app.run(port=int(config["field_api_port"]), host= '0.0.0.0')
