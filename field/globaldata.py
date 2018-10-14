@@ -28,6 +28,12 @@ field = {
 		"levitate_count":0,
 		"boost_count":0,
 		"active":[]
+	},
+	"ownerships":{
+		# Can be n,r,or b
+		"red_switch":"n",
+		"blue_switch":"n",
+		"scale":"n"
 	}
 }
 
@@ -40,6 +46,8 @@ teams = {
 	"red":["0000","0000","0000"],
 	"blue":["0000","0000","0000"]
 }
+
+
 
 time = 00
 start_time = 00

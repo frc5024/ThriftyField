@@ -11,18 +11,18 @@
 	<!--Event Title-->
 	<div>
 		<br><br><br>
-	<h1 class="title is-1" style="color:white;font-size:100">{event.name}</h1>
+	<h1 id="event" class="title is-1" style="color:white;font-size:100">{event.name}</h1>
 	</div>
 	
 	<div class="columns" style="position:fixed;bottom:0;width:100%;padding:30;">
 	<div class="column"></div>
 	
-	<div class="column is-three-quarters">
+	<div class="column is-three-fifths">
 	<!--Scoreboard-->
 	<div id="scoreboard" class="columns" style="padding:0;margin:0;box-shadow: 2px 2px 5px grey;">
 		<!--Red teams-->
 		<div id="red_teams" class="column " style="text-align:center;background-color:white">
-			<h1 id="red1">????</h1>
+			<h1 id="red1" style="padding-top:5">????</h1>
 			<h1 id="red2">????</h1>
 			<h1 id="red3">????</h1>
 		</div>
@@ -33,9 +33,9 @@
 			<div id="scorebox" class="columns">
 				<div class="column">
 					<!--Powerups-->
-					<h1 id="r-v-L" style="text-align:left; padding-bottom:5">0</h1>
-					<h1 id="r-v-F" style="text-align:left; padding-bottom:5">0</h1>
-					<h1 id="r-v-B" style="text-align:left; padding-bottom:5">0</h1>
+					<h1 id="r-v-F" class="title is-5" style="text-align:left; padding:0; margin: 0; padding-bottom:5;  color:white">F 0</h1>
+					<h1 id="r-v-L" class="title is-5" style="text-align:left; padding:0; margin: 0; padding-bottom:5; color:white">L 0</h1>
+					<h1 id="r-v-B" class="title is-5" style="text-align:left; padding:0; margin: 0; padding-bottom:5; color:white">B 0</h1>
 				</div>
 				<div class="column">
 					<br>
@@ -48,20 +48,44 @@
 		</div>
 		
 		<!--Centre Logo-->
-		<div id="Logo" class="column is-one-fifth" style="background-color:white">
-			<h1 id="time" class="title is-1">00</h1>
+		<div id="Logo" class="column" style="background-color:white">
+			<h1 id="time" class="title is-1" style="padding-bottom:15;margin:0">00</h1>
+			<div id="field" class="columns">
+				<div class="column"></div>
+				
+				<div id="rswitch" class="column" style="background-color:grey"></div>
+				<div class="column"></div>
+				<div id="scale" class="column" style="background-color:grey"></div>
+				<div class="column"></div>
+				<div id="bswitch" class="column" style="background-color:grey"></div>
+				
+				<div class="column"></div>
+			</div>
 		</div>
 		
 		<!--Blue Score-->
 		<div id="blue_score" class="column is-one-quarter" style="background-color:#1a7bfe;color:white;text-align:center;display: inline-block;">
-			<br>
-			<h1 class="title" style="color:white;margin:0" id="bscore">00</h1>
-			<br>
+			<div id="scorebox" class="columns">
+				<div class="column"></div>
+				<div class="column">
+					<br>
+					<h1 class="title" style="color:white;margin:0;padding:0; text-align:left" id="bscore">00</h1>
+				</div>
+				<div class="column">
+					<!--Powerups-->
+					<h1 id="b-v-F" class="title is-5" style="text-align:right; padding:0; margin: 0; padding-bottom:5; color:white">0 F</h1>
+					<h1 id="b-v-L" class="title is-5" style="text-align:right; padding:0; margin: 0; padding-bottom:5; color:white">0 L</h1>
+					<h1 id="b-v-B" class="title is-5" style="text-align:right; padding:0; margin: 0; padding-bottom:5; color:white">0 B</h1>
+				</div>
+				
+				
+				
+			</div>
 		</div>
 		
 		<!--Blue teams-->
 		<div id="blue_teams" class="column " style="text-align:center;background-color:white">
-			<h1 id="blue1">????</h1>
+			<h1 id="blue1" style="padding-top:5">????</h1>
 			<h1 id="blue2">????</h1>
 			<h1 id="blue3">????</h1>
 		</div>
@@ -69,17 +93,31 @@
 	</div>
 	
 	<!--Footer-->
-	<div id="footer" style="background-color:#2f322f;color:white; text-align:right; padding-right:10;box-shadow: 2px 2px 5px grey;">
-		<span><h1>ThriftyField</h1></span>
+	<div id="footer" class="columns" style="padding:0;margin:0;background-color:#2f322f;color:white;box-shadow: 2px 2px 5px grey;">
+		<div class="column" style="text-align:left; padding:1;padding-left:10"><span><h1>{event.name}</h1></span></div>
+		<div class="column" style="text-align:right;padding:1; padding-right:10"><span><h1>ThriftyField</h1></span></div>
 	</div>
 	</div>
 	
 	<div class="column"></div>
 	</div>
+	
+	
 	<script>
 	function decode_utf8(s) {
   return decodeURIComponent(escape(s));
 }
+//sounds
+var auto_start = new Audio('/audio/auto_start.wav');
+var teleop_start = new Audio('/audio/teleop_start.wav');
+var game_abort = new Audio('/audio/game_abort.wav');
+var game_end = new Audio('/audio/game_end.wav');
+
+auto_start.load();
+teleop_start.load();
+game_abort.load();
+game_end.load();
+
 // Teams
 	var red1 = document.getElementById("red1");
 	var red2 = document.getElementById("red2");
@@ -94,10 +132,40 @@ var bs = document.getElementById("bscore");
 
 var time = document.getElementById("time");
 
+var rl = document.getElementById("r-v-L");
+var rb = document.getElementById("r-v-B");
+var rf = document.getElementById("r-v-F");
+
+var bl = document.getElementById("b-v-L");
+var bb = document.getElementById("b-v-B");
+var bf = document.getElementById("b-v-F");
+
+
+var abortlock = false;
 		var eventSource = new EventSource('/subscribe');
 		eventSource.onmessage = function(m) {
+			console.log(m);
 			var a = JSON.parse(m["data"].substring(2, m["data"].length-1));
-			// console.log(a);
+			
+			
+			//play sounds
+			if(a["time"] == a["timings"]["Warmup"] + 1){
+				auto_start.play();
+				abortlock = false;
+			}
+			if(!a["enabled"] && a["time"] < a["timings"]["total"] && a["time"] > 1){
+				if(!abortlock){
+					game_abort.play();
+				}
+				abortlock = true;
+			}
+			if(a["time"] == a["timings"]["Warmup"] + a["timings"]["Auto"] + 1){
+				teleop_start.play();
+			}
+			if(a["time"] == a["timings"]["total"]){
+				game_end.play();
+			}
+			// teams
 			red1.innerHTML = a["teams"]["red"][0];
 			red2.innerHTML = a["teams"]["red"][1];
 			red3.innerHTML = a["teams"]["red"][2];
@@ -112,26 +180,15 @@ var time = document.getElementById("time");
 			
 			// time
 			time.innerHTML = a["time"]
+			
+			// Vaults
+			rl.innerHTML = a["field"]["vaultR"]["levitate_count"]
+			rb.innerHTML = a["field"]["vaultR"]["boost_count"]
+			rf.innerHTML = a["field"]["vaultR"]["force_count"]
+			
+			bl.innerHTML = a["field"]["vaultB"]["levitate_count"]
+			bb.innerHTML = a["field"]["vaultB"]["boost_count"]
+			bf.innerHTML = a["field"]["vaultB"]["force_count"]
 		}
 	</script>
-	<!--
-	<script>
-	// get data from page
-	var red1 = document.getElementById("red1");
-	var red2 = document.getElementById("red2");
-	var red3 = document.getElementById("red3");
-	var blue1 = document.getElementById("blue1");
-	var blue2 = document.getElementById("blue2");
-	var blue3 = document.getElementById("blue3");
-		while(true){
-			// Get data from api
-			fetch("http://{field.addr}/api/teams/onfield")
-		  .then((resp) => resp.json()) // Transform the data into json
-		  .then(function(data) {
-		    // Create and append the li's to the ul
-		    console.log(resp["red"][1])
-		    })
-		}
-	</script>
-	-->
 </body>

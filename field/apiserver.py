@@ -32,7 +32,7 @@ def gametime():
 @app.route("/api/getall")
 def getall():
 	#return json object
-	return str({"scores":globaldata.scores,"teams":globaldata.teams,"time":int(globaldata.time)}).replace("\'", "\"")
+	return str({"scores":globaldata.scores,"teams":globaldata.teams,"time":int(globaldata.time), "field":globaldata.field, "enabled":globaldata.game_enabled, "timings":globaldata.timings}).replace("\'", "\"").replace("False", "0").replace("True", "1")
 
 @app.route("/admin", methods=["GET", "POST"])
 def admin():

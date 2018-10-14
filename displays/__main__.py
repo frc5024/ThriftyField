@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import request
 from flask import make_response
-from flask import Response
+from flask import Response, send_from_directory
 import json
 # import flask_sse
 import requests
@@ -76,6 +76,11 @@ class SSE(Thread):
 	
 	def stop(self):
 		self.running = False
+
+# Expose sounds folder
+@app.route('/audio/<path:path>')
+def send_js(path):
+    return send_from_directory('sounds', path)
 
 # Start webserver
 if __name__ == '__main__':

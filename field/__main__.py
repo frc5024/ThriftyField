@@ -6,6 +6,9 @@ import network as network
 from datetime import datetime
 from threading import Thread
 import apiserver as apiserver
+from game import match_timing as mt
+
+globaldata.timings = mt.duration
 
 # Load the master config file
 with open("./config.json") as conf:
@@ -40,6 +43,7 @@ network.init()
 
 running = not globaldata.stopservers
 
+
 while running:
 	if globaldata.game_enabled:
 		
@@ -54,7 +58,7 @@ while running:
 		globaldata.time = int(curr_time.strftime("%s")) - globaldata.starttime
 		
 		# When the game hits its time limit, do this:
-		if str(globaldata.time) == "138":
+		if str(globaldata.time) == str(mt.duration["total"]):
 			globaldata.game_enabled = False
 			
 	# states = field.getStates()
