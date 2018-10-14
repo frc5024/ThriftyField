@@ -31,7 +31,7 @@ field = {
 	},
 	"ownerships":{
 		# Can be n,r,or b
-		"red_switch":"n",
+		"red_switch":"b",
 		"blue_switch":"n",
 		"scale":"n"
 	}

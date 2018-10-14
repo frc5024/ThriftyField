@@ -140,6 +140,9 @@ var bl = document.getElementById("b-v-L");
 var bb = document.getElementById("b-v-B");
 var bf = document.getElementById("b-v-F");
 
+var rsw = document.getElementById("rswitch");
+var bsw = document.getElementById("bswitch");
+var scale = document.getElementById("scale");
 
 var abortlock = false;
 		var eventSource = new EventSource('/subscribe');
@@ -189,6 +192,31 @@ var abortlock = false;
 			bl.innerHTML = a["field"]["vaultB"]["levitate_count"] + " L"
 			bb.innerHTML = a["field"]["vaultB"]["boost_count"] + " B"
 			bf.innerHTML = a["field"]["vaultB"]["force_count"] + " F"
+			
+			// indecators
+			if(a["field"]["ownerships"]["red_switch"] == "r"){
+				rsw.style.backgroundColor = "#ff333f";
+			}else if(a["field"]["ownerships"]["red_switch"] == "b"){
+				rsw.style.backgroundColor = "#1a7bfe";
+			}else{
+				rsw.style.backgroundColor = "grey";
+			}
+			
+			if(a["field"]["ownerships"]["blue_switch"] == "r"){
+				bsw.style.backgroundColor = "#ff333f";
+			}else if(a["field"]["ownerships"]["blue_switch"] == "b"){
+				bsw.style.backgroundColor = "#1a7bfe";
+			}else{
+				bsw.style.backgroundColor = "grey";
+			}
+			
+			if(a["field"]["ownerships"]["scale"] == "r"){
+				scale.style.backgroundColor = "#ff333f";
+			}else if(a["field"]["ownerships"]["scale"] == "b"){
+				scale.style.backgroundColor = "#1a7bfe";
+			}else{
+				scale.style.backgroundColor = "grey";
+			}
 		}
 	</script>
 </body>
