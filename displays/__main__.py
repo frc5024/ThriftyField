@@ -65,10 +65,10 @@ class SSE(Thread):
 		while self.running:
 			try:
 				payload = requests.get(config["field_combined"]+"/api/getall").text
-				# red.publish("gamedata", str([payload, i]))
+				red.publish("gamedata", payload)
 			except:
 				print("Could not connect to field")
-			payload = requests.get(config["field_combined"]+"/api/getall").text
+			# payload = requests.get(config["field_combined"]+"/api/getall").text
 			# print(payload)
 			red.publish("gamedata", payload)
 			time.sleep(0.1)

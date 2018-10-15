@@ -8,6 +8,7 @@ from threading import Thread
 import apiserver as apiserver
 from game import match_timing as mt
 import logging
+# import subprocess
 
 globaldata.timings = mt.duration
 
@@ -21,9 +22,9 @@ class server(Thread):
 		self.running = True
 
 	def run(self):
-		# log = logging.getLogger('werkzeug')
-		# log.disabled = True
-		# apiserver.app.logger.disabled = True
+		log = logging.getLogger('werkzeug')
+		log.disabled = True
+		apiserver.app.logger.disabled = True
 		apiserver.app.run(port=int(config["field_api_port"]), host= '0.0.0.0')
 	
 	def stop(self):
