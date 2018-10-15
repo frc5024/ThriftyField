@@ -36,7 +36,7 @@ def getall():
 
 @app.route("/admin", methods=["GET", "POST"])
 def admin():
-	template = open("./field/templates/admin.html", "r").read()
+	template = open("./field-legacy/templates/admin.html", "r").read()
 	
 	if request.method == 'POST':
 		# Set the game state
@@ -88,7 +88,7 @@ def ref():
 		if request.form.get("BR"):
 			globaldata.field["switchB"]["state"] = "forward"
 	
-	template = open("./field/templates/ref.html", "r").read()
+	template = open("./field-legacy/templates/ref.html", "r").read()
 	
 	return template
 
