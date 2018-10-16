@@ -1,14 +1,13 @@
 from field import driverstation as dsconn
 from threading import Thread
 
-class AllianceStation(object):
-	def __init__(self, station_id: str):
-		self.id           = station_id
-		self.DsConnection = ""
-		self.Estop        = False
-		self.Bypass       = False
-		self.Team         = ""
-
+AllianceStation = {
+		id           = station_id,
+		DsConnection = "",
+		Estop        = False,
+		Bypass       = False,
+		Team         = ""
+}
 
 # Make a class for a field
 class Field(object):
@@ -22,6 +21,10 @@ class Field(object):
 		
 		# Driverstations
 		lastDsPacketTime = 0.0
+
+# List of stations
+allianceStations = {"B1":AllianceStation,"B2":AllianceStation,"B3":AllianceStation,"R1":AllianceStation,"R2":AllianceStation,"R3":AllianceStation}
+
 
 def getAssignedStation(team):
 	if team == "5024":
