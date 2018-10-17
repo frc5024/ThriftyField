@@ -1,59 +1,109 @@
-"""Get and Send data to driverstations"""
+""" Communicate with the ThriftyClient """
 import socket
-import field
-import time
+from field import field as field
 
-
-TcpListenPort     = 1750
+TcpListenPort     = 1742#1750
 UdpSendPort       = 1121
 UdpReceivePort    = 1160
 TcpLinkTimeoutSec = 5
 UdpLinkTimeoutSec = 1
 maxTcpPacketBytes = 4096
 
-stationPositions = {"R1": 0, "R2": 1, "R3": 2, "B1": 3, "B2": 4, "B3": 5}
+DriverStationConnection = {
+	"TeamId"                    : 0,
+	"AllianceStation"           : "",
+	"Auto"                      : False,
+	"Enabled"                   : False,
+	"Estop"                     : False,
+	"DsLinked"                  : False,
+	"MissedPacketCount"         : 0,
+	"lastPacketTime"            : 0,
+	"packetCount"               : 0,
+	"missedPacketOffset"        : 0,
+	"tcpConn"                   : None,
+	"udpConn"                   : None
+}
 
-def FindDriverstations():
-	global running
+
+def createDSconn(teamid, allianceStation, tcpConnection, addr):
+	# Get just the ip address
+	ipadress, _ = addr
+	
+	print("Driver station for Team "+ str(teamid) +" connected from "+ str(ipadress))
+	
+	udpConnection = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+ 
+	# Create a new dict to be returned
+	output = DriverStationConnection
+	output["TeamId"] = teamid
+	output["AllianceStation"] = allianceStation
+	output["tcpConn"] = tcpConnection
+	output["udpConn"] = [udpConnection, ipadress, UdpSendPort]
+	
+	return output
+	
+
+def listenForDS():
+	"""Listen for driverstations and handle them"""
+	# Create and bind to TCP socket
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	# Listen on all interfaces because we do not have access to FRC's hardware for networking
 	s.bind(("0.0.0.0", TcpListenPort))
 	s.listen(1)
 	
-	print("Listening for driverstations on port: "+ str(TcpListenPort))
-	# Loop so we don't have to keep spinning up threads
 	while True:
+		conn, addr = s.accept()
 		try:
-			conn, addr = s.accept()
+			data = str(conn.recv(1024).decode())
 		except:
-			print("Error accepting driverstation connection")
+			print("Error decoding data sent by "+ str(addr))
+			conn.close()
+			continue
 		
-		# Get the data
-		packet = conn.recv(5)
-		if data:
-			if not packet[0] == 0 and not packet[1] == 3 and not packet[2] == 24:
-				print("Invalid packet")
-				comm.close()
-				continue
-			
-			teamid = int(packet[3])<<8 + int(packet[4])
-			teamStation = field.getAssignedStation(str(teamid))
-			if teamStation == "":
-				print("Connection rejected from " + str(addr) + " because they are not supposed to be on the field")
-				# Sleep to stop reconnect using all bandwidth
-				time.sleep(1)
-				conn.close()
-			
-			print("Found Team: "+ str(teamid))
-			
-			# Construct response
-			status = 0 # Set to 1 if they are in the wrong station. TODO: Implement later
-			
-			bytes = [0,3,25]
-			print("Assigning team "+ str(teamid) +" to station" + str(teamStation))
-			bytes.append(stationPositions[teamStation])
-			bytes.append(status)
-			assignPacket = bytearray(bytes)
-			
-			conn.write(assignPacket)
-			
+		# Parse data sent
+		data = eval(data)
+		teamid = data["team_id"]
+		clienttype = data["client_type"]
+		
+		print("Found "+ str(clienttype) + " at: "+ str(addr))
+		
+		# Construct a response
+		response = {}
+		response["station"] = field.getAssignedStation(str(teamid))
+		print("Sending assignment data to: "+ str(addr))
+		conn.send(str(response).encode())
+		conn.close()
+		dsconn = createDSconn(teamid, response["station"], conn, addr)
+		field.allianceStations[response["station"]]["DsConnection"] = dsconn
+
+# DS commands
+def enable(udpconn):
+	message = {
+		"source": "FMS",
+		"robot_state": "enable",
+		"stay_connected": True
+	}
+	udpconn[0].sendto(message, (udpconn[1], udpconn[2]))
+
+def disable(udpconn):
+	message = {
+		"source": "FMS",
+		"robot_state": "disable",
+		"stay_connected": True
+	}
+	udpconn[0].sendto(message, (udpconn[1], udpconn[2]))
+
+def estop(udpconn):
+	message = {
+		"source": "FMS",
+		"robot_state": "estop",
+		"stay_connected": True
+	}
+	udpconn[0].sendto(message, (udpconn[1], udpconn[2]))
+
+def disconnect(udpconn):
+	message = {
+		"source": "FMS",
+		"robot_state": "disable",
+		"stay_connected": False
+	}
+	udpconn[0].sendto(message, (udpconn[1], udpconn[2]))

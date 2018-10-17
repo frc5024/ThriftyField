@@ -1,12 +1,19 @@
 from field import driverstation as dsconn
 from threading import Thread
+import time
+
+# Config
+arenaLoopPeriodMs     = 10
+dsPacketPeriodMs      = 250
+matchEndScoreDwellSec = 3
+postTimeoutSec        = 4
 
 AllianceStation = {
-		id           = station_id,
-		DsConnection = "",
-		Estop        = False,
-		Bypass       = False,
-		Team         = ""
+		"id"           : "B1",
+		"DsConnection" : "",
+		"Estop"        : False,
+		"Bypass"       : False,
+		"Team"         : ""
 }
 
 # Make a class for a field
@@ -38,7 +45,7 @@ class FindDS(Thread):
 		Thread.__init__(self)
 
 	def run(self):
-		dsconn.FindDriverstations()
+		dsconn.listenForDS()
 	
 	# def stop(self):
 	# 	dsconn.running = False
@@ -51,7 +58,5 @@ def run():
 	# Loop
 	print("Type EXIT to close")
 	while True:
-		if str(input("")) == "EXIT":
-			# fDS.stop()
-			print("Press CTRL+C")
+		time.sleep(0.001 * arenaLoopPeriodMs)
 			
