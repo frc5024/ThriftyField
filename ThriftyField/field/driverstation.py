@@ -82,7 +82,7 @@ def enable(udpconn):
 		"robot_state": "enable",
 		"stay_connected": True
 	}
-	udpconn[0].sendto(message, (udpconn[1], udpconn[2]))
+	udpconn[0].sendto(str(message).encode(), (udpconn[1], udpconn[2]))
 
 def disable(udpconn):
 	message = {
@@ -90,7 +90,7 @@ def disable(udpconn):
 		"robot_state": "disable",
 		"stay_connected": True
 	}
-	udpconn[0].sendto(message, (udpconn[1], udpconn[2]))
+	udpconn[0].sendto(str(message).encode(), (udpconn[1], udpconn[2]))
 
 def estop(udpconn):
 	message = {
@@ -98,7 +98,7 @@ def estop(udpconn):
 		"robot_state": "estop",
 		"stay_connected": True
 	}
-	udpconn[0].sendto(message, (udpconn[1], udpconn[2]))
+	udpconn[0].sendto(str(message).encode(), (udpconn[1], udpconn[2]))
 
 def disconnect(udpconn):
 	message = {
@@ -106,4 +106,4 @@ def disconnect(udpconn):
 		"robot_state": "disable",
 		"stay_connected": False
 	}
-	udpconn[0].sendto(message, (udpconn[1], udpconn[2]))
+	udpconn[0].sendto(str(message).encode(), (udpconn[1], udpconn[2]))

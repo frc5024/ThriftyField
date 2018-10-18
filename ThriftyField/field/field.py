@@ -58,5 +58,6 @@ def run():
 	# Loop
 	print("Type EXIT to close")
 	while True:
-		time.sleep(0.001 * arenaLoopPeriodMs)
-			
+		# time.sleep(0.001 * arenaLoopPeriodMs)
+		if input('') == "dis":
+			dsconn.disable(allianceStations["B1"]["DsConnection"]["udpConn"])

@@ -4,6 +4,8 @@ print("Starting ThriftyClient")
 import socket
 import sys
 import os
+import pyautogui
+from threading import Thread
 
 
 def clear():
@@ -63,10 +65,6 @@ ds2fms_notify.close()
 assignedStation = response["station"]
 isConnected = True
 print("Connected to ThriftyField!")
-
-# Wait for user input
-print("Press ENTER to enable ThriftyClient")
-input("")
 clear()
 
 print("-- ThriftyField --")
@@ -83,20 +81,65 @@ else:
 print("Team Number: "+ str(teamid))
 print("--- LOG ---")
 
-# Listen on all interfaces for FMS commands
-udpconn = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-udpconn.bind((0.0.0.0, 1121))
-print("UDP Listener started")
+# Put all of the actual ds code on its own thread for easy shutdown
+class DS(Thread):
+	def __init__(self):
+		Thread.__init__(self)
 
+	def run(self):
+		# Listen on all interfaces for FMS commands
+		udpconn = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+		udpconn.bind(("0.0.0.0", 1121))
+		print("UDP Listener started")
+		
+		while True:
+			try:
+				# Recieve data from FMS
+				data, addr = udpconn.recvfrom(1024)
+			except:
+				continue
+			
+			
+			# Pares data from FMS
+			data = eval(str(data.decode()))
+			
+			source = data["source"]
+			state = data["robot_state"]
+			keepConnection = data["stay_connected"]
+			
+			# Close program if instructed to
+			if not keepConnection:
+				print("Disconnected from "+ str(source))
+				exit(0)
+			
+			if state == "enable":
+				print("Enabling Robot")
+				# Inject keystrokes into driverstation
+				pyautogui.keyDown("[")
+				pyautogui.keyDown("]")
+				pyautogui.keyDown("\\")
+				
+				pyautogui.keyUp("[")
+				pyautogui.keyUp("]")
+				pyautogui.keyUp("\\")
+				print("Signal sent")
+			
+			elif state == "disable":
+				print("Disabling Robot")
+				pyautogui.press("enter")
+				print("Signal sent")
+			
+			elif state == "estop":
+				print("ESTOP SENT FROM FMS!!!")
+				pyautogui.press("space")
+				print("Signal sent")
+
+# Start the program
+dsthread = DS()
+dsthread.start()
+
+print("Type EXIT to stop")
 while True:
-	try:
-		# Recieve data from FMS
-		data, addr = udpconn.recvfrom(1024)
-	except:
-		continue
-	
-	if not str(add) == str(FMS_ip):
-		continue
-	
-	data = eval(str(data.decode()))
-	
+	if input("") == "EXIT":
+		print("Press CTRL+C")
+		exit(0)
