@@ -2,8 +2,14 @@ from flask import Flask
 from flask import request
 from flask import make_response
 from flask import jsonify
+import os
 app = Flask(__name__)
-keys = []
+try:
+    keys = os.environ["THRIFTY_KEYS"].split(":")
+    print("Loaded api keys: " + keys)
+except:
+    print("No api keys found.. Using empty list")
+    keys = []
 
 # routes
 from api.read import *
