@@ -1,3 +1,0 @@
-pyautogui
-flask
-python3-Xlib

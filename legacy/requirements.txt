@@ -1,5 +1,0 @@
-flask
-pyserial
-gevent
-gunicorn
-redis
