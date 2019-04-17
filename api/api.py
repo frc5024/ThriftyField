@@ -5,8 +5,8 @@ from flask import jsonify
 import os
 app = Flask(__name__)
 try:
-    keys = os.environ["THRIFTY_KEYS"].split(":")
-    print("Loaded api keys: " + keys)
+    keys = str(os.environ["THRIFTY_KEYS"]).split(":")
+    print("Loaded api keys: " + str(keys))
 except:
     print("No api keys found.. Using empty list")
     keys = []
