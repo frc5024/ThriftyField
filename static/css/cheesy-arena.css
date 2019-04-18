@@ -1,0 +1,108 @@
+/*
+  Copyright 2014 Team 254. All Rights Reserved.
+  Author: pat@patfairbank.com (Patrick Fairbank)
+*/
+
+/* Bootstrap overrides. */
+.form-control[disabled] {
+  cursor: default;
+}
+.btn[disabled] {
+  color: #000;
+  opacity: 0.2;
+}
+
+/* New styles. */
+@font-face {
+  font-family: "FuturaLTBold";
+  src: url("fonts/futura-lt-bold.otf") format("opentype");
+}
+@font-face {
+  font-family: "FuturaLT";
+  src: url("fonts/futura-lt.otf") format("opentype");
+}
+.red-text {
+  color: #f00;
+}
+.blue-text {
+  color: #00f;
+}
+.well-red {
+  background-color: #f2dede;
+}
+.well-darkred {
+  background-color: #ebcccc;
+}
+.well-blue {
+  background-color: #d9edf7;
+}
+.well-darkblue {
+  background-color: #c4e3f3;
+}
+.col-no-padding {
+  padding-left: 0;
+  padding-right: 0;
+}
+.modal-large {
+  width: 60%;
+}
+.ds-status, .radio-status, .robot-status, .bypass-status {
+  background-color: #aaa;
+  color: #000;
+  border: 1px solid #999;
+  border-radius: 4px;
+  padding: 0px;
+  width: 50px;
+  height: 27px;
+  line-height: 25px;
+  font-size: 14px;
+  margin: 0 auto;
+}
+.bypass-status {
+  cursor: pointer;
+}
+[data-status-ok="true"] {
+  background-color: #0e8;
+}
+[data-status-ok="false"] {
+  background-color: #e66;
+}
+[data-blink="true"] {
+  background-color: #fc0;
+}
+.btn-match-play {
+  width: 150px;
+  font-size: 16px;
+}
+.label-scoring {
+  background-color: #e66;
+}
+.label-scoring[data-ready=true] {
+  background-color: #0c6;
+}
+.nowrap {
+  white-space: nowrap;
+}
+.indentwrap p {
+  margin: 8px 0px;
+  padding-left: 20px;
+  text-indent: -20px;
+}
+.scoring {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+.scoring-comment {
+  font-size: 20px;
+}
+.scoring-message {
+  color: #f00;
+}
+.btn-lower-third {
+  width: 80px;
+}
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

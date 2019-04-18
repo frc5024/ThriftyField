@@ -1,0 +1,9 @@
+{
+    "driverstation_count":6,
+    "administration":{
+        "webserver_port":8082
+    },
+    "scoring":{
+        "webserver_port":1500
+    }
+}
