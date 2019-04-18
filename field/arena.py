@@ -1,4 +1,15 @@
 from model.database import Database
+from model.team import Team
+from field.driverstationconnection import DriverStationConnection, ListenForDsUdpPackets, ListenForDriverstations
+from logging import *
+
+import time
+from threading import Thread
+
+arena_loop_period_ms = 10
+ds_packet_period_ms = 250
+match_end_score_dwell_sec = 3
+post_timeout_sec = 4
 
 class MatchState:
     pre_match = 0
@@ -16,7 +27,9 @@ class AllianceStation:
     astop = False
     estop = False
     bypass = False
-    team = None
+
+    def __init__(self):
+        self.team = Team()
 
 class Arena(object):
     database = None
@@ -28,6 +41,9 @@ class Arena(object):
     red_realtime_score = None
     alliance_stations = {}
     tba_client = None
+
+    driverstation_listener = None
+    driverstation_udp_packet_listener = None
 
     def __init__(self, db_path):
         self.database = Database(db_path)
@@ -48,5 +64,17 @@ class Arena(object):
         self.audience_display_mode = "blank"
         self.alliance_station_display_mode = "match"
     
-    
+    def Run(self):
+        # listen for driverstations
+        self.driverstation_listener = Thread(target=ListenForDriverstations, args=(self, None))
+        self.driverstation_listener.start()
+
+        # Listen for DS UDP packets
+        self.driverstation_udp_packet_listener = Thread(target=ListenForDsUdpPackets, args=(self, None))
+        self.driverstation_udp_packet_listener.start()
+
+        notice("Arena has started")
+        while True:
+
+            time.sleep(arena_loop_period_ms)
 

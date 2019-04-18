@@ -1,5 +1,7 @@
 from .database import Database
 
+elim_round_names = {1: "F", 2: "SF", 4: "QF", 8: "EF"}
+
 class Match:
     id = 0
     type = ""
@@ -26,7 +28,7 @@ class Match:
     winner = ""
     gsm = ""
 
-elim_round_names = {1: "F", 2: "SF", 4: "QF", 8: "EF"}
+    def Save(self, database: Database):
+        database.data["matchMap"].append(self)
 
-def SaveMatch(database: Database, match: Match):
-    database.data["matchMap"].append(match)
+

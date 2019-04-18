@@ -1,16 +1,14 @@
 import json
-from threading import Thread
 
-import web
+from field.arena import Arena
+from logging import *
 
-print("Loading configuraiton file")
+notice("Loading configuraiton file")
 config = json.load(open("./config.json", "r"))
 
-print("Preparing webservers")
-admin_panel = web.AdminWebserver(config["administration"]["webserver_port"])
-scoring_panel = web.ScoringWebserver(config["scoring"]["webserver_port"])
+event_db_path = "./event.db"
+http_port = 8080
 
-# Start the webservers
-print("Starting webservers")
-admin_panel.Serve()
-scoring_panel.Serve()
+arena = Arena(event_db_path)
+
+arena.Run()
