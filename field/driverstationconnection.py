@@ -100,6 +100,28 @@ def ListenForDriverstations(arena, _):
             continue
         
         team_id = int(data[3]) << 8 + int(data[4])
+
+        assigned_station = arena.GetAssignedAllianceStation(team_id)
+
+        if assigned_station == "":
+            notice(f"Rejecting connection from team {team_id}, who is not supposed to be on the field")
+            time.sleep(1)
+            conn.close()
+            continue
+        
+        station_status = bytes(0)
+
+        team_string = str(addr[1]).split(".")
+        
+        team_digit_1 = int(team_string[1])
+        team_digit_2 = int(team_string[2])
+
+        station_team_id = team_digit_1 * 100 + team_digit_2
+        if station_team_id != team_id:
+            wrong_assigned_station = arena.GetAssignedAllianceStation(station_team_id)
+            if wrong_assigned_station != "":
+                notice(f"Team {team_id} is in incorrect station {wrong_assigned_station}")
+                station_status = 1
         
 
 

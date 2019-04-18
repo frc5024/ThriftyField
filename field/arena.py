@@ -76,5 +76,10 @@ class Arena(object):
         notice("Arena has started")
         while True:
 
-            time.sleep(arena_loop_period_ms)
-
+            time.sleep(arena_loop_period_ms / 1000)
+    
+    def GetAssignedAllianceStation(self, team_id: int):
+        for station in self.alliance_stations:
+            if alliance_stations[station].team != None and alliance_stations[station].team.id == team_id:
+                return station
+        return ""
