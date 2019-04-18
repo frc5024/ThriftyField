@@ -1,5 +1,6 @@
 import socket
 import time
+from threading import Thread
 
 from logging import *
 
@@ -10,7 +11,7 @@ driverstation_tcp_link_timeout_sec = 5
 driverstation_dup_link_timeout_sec = 1
 max_tcp_packet_bytes = 4096
 
-
+alliance_station_position_map = {"R1": 0, "R2": 1, "R3": 2, "B1": 3, "B2": 4, "B3": 5}
 
 class DriverStationConnection:
     team_id = 0
@@ -123,6 +124,38 @@ def ListenForDriverstations(arena, _):
                 notice(f"Team {team_id} is in incorrect station {wrong_assigned_station}")
                 station_status = 1
         
+        assignment_packet = [0, 3, 25, 0, 0]
+        notice(f"Accepting connection form Team {team_id} in station {assigned_station}")
+        assignment_packet[3] = alliance_station_position_map[assigned_station]
+        assignment_packet[4] = station_status
 
+        conn.send(bytes(assignment_packet))
+        
+        dsconn = DriverStationConnection(team_id, assigned_station, (conn, addr))
+
+        arena.alliance_stations[assigned_station].driverstation_connection = dsconn
+
+        arena.alliance_stations[assigned_station].tcp_conn_thread = Thread(target=HandleTcpConnection, args=(arena, arena.alliance_stations[assigned_station].driverstation_connection))
+        arena.alliance_stations[assigned_station].tcp_conn_thread.start()
+
+def HandleTcpConnection(arena, dsconn):
+    while True:
+        data = dsconn.tcp_conn.recv(max_tcp_packet_bytes)
+        if not data:
+            error(f"Error reading from connection for team {dsconn.team_id}")
+            dsconn.tcp_conn.close()
+            arena.alliance_stations[assigned_station].driverstation_connection = None
+            break
+        
+        packet_type = int(data[2])
+
+        if packet_type == 22:
+            # Robot status
+            status_packet = data[2:38]
+            DecodeStatusPacket(dsconn, status_packet)
+
+def DecodeStatusPacket(dsconn, packet):
+    dsconn.ds_robot_trip_time_ms = int(data[1]) / 2
+    dsconn.missed_packet_count = int(data[2]) - dsconn.missed_packet_offset
 
         
