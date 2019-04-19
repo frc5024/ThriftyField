@@ -17,3 +17,7 @@ def RunWrapper(port, _):
 @app.route("/")
 def index():
     return render_template("index.htm")
+
+@app.route("/displays/main")
+def mainDisplay():
+    return render_template("main-display.htm")

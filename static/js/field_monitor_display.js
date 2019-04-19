@@ -14,9 +14,9 @@ var handleArenaStatus = function(data) {
     // Select the DOM elements corresponding to the team station.
     var teamElementPrefix;
     if (station[0] === "R") {
-      teamElementPrefix = "#" + redSide + "Team" + station[1];
+      teamElementPrefix = "#" + redSide + station[1];
     } else {
-      teamElementPrefix = "#" + blueSide + "Team" + station[1];
+      teamElementPrefix = "#" + blueSide  + station[1];
     }
     var teamIdElement = $(teamElementPrefix + "Id");
     var teamDsElement = $(teamElementPrefix + "Ds");
@@ -47,8 +47,6 @@ var handleArenaStatus = function(data) {
       teamIdElement.attr("data-status", "");
     }
 
-    var wifiStatus = data.TeamWifiStatuses[station];
-    teamRadioTextElement.text(wifiStatus.TeamId);
 
     if (stationStatus.DsConn) {
       // Format the driver station status box.
@@ -103,11 +101,11 @@ $(function() {
   var urlParams = new URLSearchParams(window.location.search);
   var reversed = urlParams.get("reversed");
   if (reversed === "true") {
-    redSide = "right";
-    blueSide = "left";
+    redSide = "R";
+    blueSide = "B";
   } else {
-    redSide = "left";
-    blueSide = "right";
+    redSide = "R";
+    blueSide = "B";
   }
   $(".reversible-left").attr("data-reversed", reversed);
   $(".reversible-right").attr("data-reversed", reversed);
