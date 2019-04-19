@@ -5,7 +5,7 @@ from threading import Thread
 from game.matchstate import MatchState
 import game.matchtiming
 
-from logging import *
+from consolelog import *
 
 driverstation_tcp_listen_port = 1750
 driverstation_udp_send_port = 1121
@@ -37,7 +37,7 @@ class DriverStationConnection:
     udp_conn = (None, None)
 
     def __init__(self, team_id: int, alliance_station: str, tcp_conn: tuple):
-        ip_addr = tcp_conn[1][0]
+        self.ip_addr = tcp_conn[1][0]
         notice(f"Driverstation from team {team_id} connected from {ip_addr}")
 
         self.tcp_conn = tcp_conn
@@ -117,10 +117,10 @@ def EncodeControlPacket(arena, dsconn: DriverStationConnection):
 
     return bytes(packet)
 
-    
-
-
-
+def SendControlPacket(arena, dsconn):
+    packet = EncodeControlPacket(arena, dsconn)
+    if dsconn.udp_conn != None:
+        dsconn.udp_conn.sendto(packet,(dsconn.ip_addr, driverstation_udp_send_port))
 
 def ListenForDsUdpPackets(arena, _):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

@@ -1,7 +1,7 @@
 from model.database import Database
 from model.team import Team
 from field.driverstationconnection import DriverStationConnection, ListenForDsUdpPackets, ListenForDriverstations
-from logging import *
+from consolelog import *
 from game import matchtiming
 from game.matchstate import MatchState 
 
@@ -145,3 +145,7 @@ class Arena(object):
                 dsconn.enabled = enabled and not station.estop and not station.bypass
                 dsconn.estop = station.estop
                 dsconn.Update()
+    
+    def CheckCanStartMatch(self):
+        if self.match_state != MatchState.pre_match:
+            return "Cannot start match while there is a match in progress or with results still pending"

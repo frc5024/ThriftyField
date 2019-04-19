@@ -1,7 +1,10 @@
 import json
+from threading import Thread
+import time
 
 from field.arena import Arena
-from logging import *
+from web import web
+from consolelog import *
 
 notice("Loading configuraiton file")
 config = json.load(open("./config.json", "r"))
@@ -9,6 +12,13 @@ config = json.load(open("./config.json", "r"))
 event_db_path = "./event.db"
 http_port = 8080
 
-arena = Arena(event_db_path)
+if __name__ == "__main__":
+    arena = Arena(event_db_path)
 
-arena.Run()
+    web.Init(arena)
+    web_thread = Thread(target=web.RunWrapper, args=(http_port, None))
+
+    # Start webserver and field
+    web_thread.start()
+    time.sleep(1)
+    arena.Run()
