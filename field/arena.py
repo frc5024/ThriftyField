@@ -2,7 +2,8 @@ from model.database import Database
 from model.team import Team
 from field.driverstationconnection import DriverStationConnection, ListenForDsUdpPackets, ListenForDriverstations
 from logging import *
-from game import matchtiming 
+from game import matchtiming
+from game.matchstate import MatchState 
 
 import time
 from threading import Thread
@@ -11,17 +12,6 @@ arena_loop_period_ms = 10
 ds_packet_period_ms = 250
 match_end_score_dwell_sec = 3
 post_timeout_sec = 4
-
-class MatchState:
-    pre_match = 0
-    start_match = 1
-    warmup_period = 2
-    auto_period = 3
-    pause_period = 4
-    teleop_period = 5
-    post_match = 6
-    timeout_active = 7
-    post_timeout = 8
 
 class AllianceStation:
     driverstation_connection = None
@@ -45,6 +35,7 @@ class Arena(object):
     tba_client = None
     match_start_time = 0
     last_match_time_sec = 0
+    match_time_sec = 0
 
     driverstation_listener = None
     driverstation_udp_packet_listener = None
@@ -92,11 +83,12 @@ class Arena(object):
         auto = False
         enabled = False
         send_ds_packet = False
-        match_time_sec = None
+        match_time_sec = self.MatchTimeSec()
 
         if self.match_state == MatchState.pre_match:
             auto = True
             enabled = False
+
         elif self.match_state == MatchState.start_match:
             self.match_start_time = time.time()
             self.last_match_time_sec = -1
@@ -107,6 +99,7 @@ class Arena(object):
             self.match_state = MatchState.auto_period
             enabled = True
             send_ds_packet = True
+
         elif self.match_state == MatchState.auto_period:
             auto = True
             enabled = True
@@ -115,6 +108,7 @@ class Arena(object):
                 send_ds_packet = True
                 self.match_state = MatchState.teleop_period
                 enabled = True
+
         elif self.match_state == MatchState.teleop_period:
             auto = False
             enabled = True
@@ -127,3 +121,27 @@ class Arena(object):
                 self.audience_display_mode = "blank"
                 self.alliance_station_display_mode = "logo"
                 # TODO: notify display modes
+
+        # TODO: match time notifier
+
+        self.last_match_time = match_time_sec
+        self.last_match_state = self.match_state
+
+        if send_ds_packet or self.last_ds_packet_time >= ds_packet_period_ms:
+            pass
+    
+    def MatchTimeSec(self):
+        if self.match_state == MatchState.pre_match or self.match_state == MatchState.start_match:
+            return 0
+        return time.time() - self.match_start_time
+    
+    def SendDsPacket(self, auto: bool, enabled: bool):
+        for station in self.alliance_stations:
+            station = self.alliance_stations[station]
+
+            dsconn = station.driverstation_connection
+            if dsconn != None:
+                dsconn.auto = auto
+                dsconn.enabled = enabled and not station.estop and not station.bypass
+                dsconn.estop = station.estop
+                dsconn.Update()

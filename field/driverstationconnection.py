@@ -1,6 +1,9 @@
 import socket
 import time
+import datetime as datetime
 from threading import Thread
+from game.matchstate import MatchState
+import game.matchtiming
 
 from logging import *
 
@@ -44,6 +47,80 @@ class DriverStationConnection:
         self.team_id = team_id
         self.alliance_station = alliance_station
     
+    
+    
+def EncodeControlPacket(arena, dsconn: DriverStationConnection):
+    packet = [0 for i in range(22)]
+
+    # Packet number
+    packet[0] = (dsconn.packet_count >> 8) & 0xff
+    packet[1] = dsconn.packet_count & 0xff
+
+    # Protocol version
+    packet[2] = 0
+
+    # Robot status
+    packet[3] = 0
+    if dsconn.auto:
+        packet[3] |= 0x02
+    if dsconn.enabled:
+        packet[3] |= 0x04
+    if dsconn.estop:
+        packet[3] |= 0x80
+    
+    # Unknown
+    packet[4] = 0
+
+    # Alliance station
+    packet[5] = alliance_station_position_map[dsconn.alliance_station]
+
+    # Match type
+    # TODO: un-hard code this value
+    # Curently only sends practice
+    packet[6] = 1
+
+    # Match number
+    # TODO: un-hard code this value
+    # Currently only sends 1
+    match_number = 1
+    packet[7] = match_number >> 8
+    packet[8] = match_number & 0xff
+
+    # Replay number
+    packet[9] = 1
+
+    # Date and time
+    packet[10] = ((time.time_ns() / 1000) >> 24) & 0xff
+    packet[11] = ((time.time_ns() / 1000) >> 16) & 0xff
+    packet[12] = ((time.time_ns() / 1000) >> 8) & 0xff
+    packet[13] = (time.time_ns() / 1000) & 0xff
+    packet[14] = time.time() % 60
+    packet[15] = time.time() / 60
+    packet[16] = packet[15] / 60
+    year, month, day = (int(i) for i in str(datetime.datetime.now()).split(" ")[0].split("-"))
+    packet[17] = day
+    packet[18] = month
+    packet[19] = year - 1900
+
+    # Seconds remaining in the current period
+    match_seconds_remaining = 0
+    if arena.match_state == MatchState.auto_period:
+        match_seconds_remaining = game.matchtiming.auto_duration_sec - arena.MatchTimeSec()
+    elif arena.match_state == MatchState.teleop_period:
+        match_seconds_remaining = game.matchtiming.auto_duration_sec + game.matchtiming.teleop_duration_sec - arena.MatchTimeSec()
+
+    packet[20] = match_seconds_remaining >> 8 & 0xff
+    packet[21] = match_seconds_remaining & 0xff
+
+    # Increment packet counter
+    dsconn.packet_count += 1
+
+    return bytes(packet)
+
+    
+
+
+
 
 def ListenForDsUdpPackets(arena, _):
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
@@ -157,5 +234,6 @@ def HandleTcpConnection(arena, dsconn):
 def DecodeStatusPacket(dsconn, packet):
     dsconn.ds_robot_trip_time_ms = int(data[1]) / 2
     dsconn.missed_packet_count = int(data[2]) - dsconn.missed_packet_offset
+
 
         
