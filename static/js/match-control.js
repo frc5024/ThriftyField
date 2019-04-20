@@ -10,3 +10,9 @@ function stopMatch() {
         console.log(data);
       });
 }
+
+function substituteTeam(team, station) {
+    $.getJSON('/api/control/alliancestation/' + station + '/' + team, function (data) {
+        console.log(data);
+      });
+}

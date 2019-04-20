@@ -89,3 +89,7 @@ def startMatch():
 def stopMatch():
     arena.AbortMatch()
     return "Done"
+
+@app.route("/api/control/alliancestation/<station>/<team>")
+def allianceStation(station, team):
+    return str(arena.AssignTeam(team, station))
