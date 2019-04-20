@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, Response
 app = Flask(__name__, static_url_path='/static', static_folder='../static', template_folder='../templates')
 
 import logging
@@ -7,11 +7,17 @@ log.setLevel(logging.ERROR)
 
 from consolelog import *
 
+import json
+config = json.load(open("./config.json", "r"))
+
 arena = None
+# api_key adds a small amount of obfuscation to the api links but does not provide any security.
+# Do not leave the field network open to the public
+api_key = config["api_key"]
 
 def Init(_arena):
     global arena
-    arena = _arena 
+    arena = _arena
 
 def RunWrapper(port, _):
     app.run(port=port, host="0.0.0.0")
@@ -37,6 +43,10 @@ def score():
     return render_template("scoring.htm")
 
 ## API ##
+@app.route("/api/key.js")
+def apiKey():
+    return Response(f"var api_key = '{api_key}';", mimetype="text/javascript")
+
 @app.route("/api/fieldinfo")
 def fieldInfo():
     red_score = arena.red_score.points
@@ -73,33 +83,33 @@ def fieldInfo():
         "time":round(arena.MatchTimeSec())
         })
 
-@app.route("/api/score/blue/<number>")
+@app.route("/api/" + api_key + "/score/blue/<number>")
 def blueScore(number):
     global arena
     arena.blue_score.points += int(number)
     return "Done"
 
-@app.route("/api/score/red/<number>")
+@app.route("/api/" + api_key + "/score/red/<number>")
 def redScore(number):
     global arena
     arena.red_score.points += int(number)
     return "Done"
 
-@app.route("/api/control/startmatch")
+@app.route("/api/" + api_key + "/control/startmatch")
 def startMatch():
     arena.StartMatch()
     return "Done"
 
-@app.route("/api/control/stopmatch")
+@app.route("/api/" + api_key + "/control/stopmatch")
 def stopMatch():
     arena.AbortMatch()
     return "Done"
 
-@app.route("/api/control/alliancestation/<station>/<team>")
+@app.route("/api/" + api_key + "/control/alliancestation/<station>/<team>")
 def allianceStation(station, team):
     return str(arena.AssignTeam(team, station))
 
-@app.route("/api/control/bypass/<station>")
+@app.route("/api/" + api_key + "/control/bypass/<station>")
 def bypass(station):
     if station not in arena.alliance_stations:
         return "Invalid station"

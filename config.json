@@ -1,9 +1,4 @@
 {
-    "driverstation_count":6,
-    "administration":{
-        "webserver_port":8082
-    },
-    "scoring":{
-        "webserver_port":1500
-    }
+    "webserver_port": 8080,
+    "api_key":"716301161142355212123164311311951056151111153"
 }

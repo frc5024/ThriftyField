@@ -2,25 +2,25 @@ var lowBatteryThreshold = 8;
 
 function startMatch() {
     console.log("Starting match")
-    $.getJSON('/api/control/startmatch', function (data) {
+    $.getJSON('/api/'+api_key+'/control/startmatch', function (data) {
         console.log(data);
       });
 }
 
 function stopMatch() {
-    $.getJSON('/api/control/stopmatch', function (data) {
+    $.getJSON('/api/'+api_key+'/control/stopmatch', function (data) {
         console.log(data);
       });
 }
 
 function substituteTeam(team, station) {
-    $.getJSON('/api/control/alliancestation/' + station + '/' + team, function (data) {
+    $.getJSON('/api/'+api_key+'/control/alliancestation/' + station + '/' + team, function (data) {
         console.log(data);
       });
 }
 
 function toggleBypass(station) {
-    $.getJSON('/api/control/bypass/' + station, function (data) {
+    $.getJSON('/api/'+api_key+'/control/bypass/' + station, function (data) {
         console.log(data);
       });
 }
@@ -145,5 +145,7 @@ function update() {
         update() 
     });
 }
+
+
 
 update();
