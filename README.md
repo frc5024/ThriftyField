@@ -1,5 +1,5 @@
 # ThriftyField
-ThriftyField is an open source alternative to the closed source FRC Field Management System(FMS). <br>
+ThriftyField is an open source alternative to the closed source FRC Field Management System (FMS). <br>
 The goal of ThriftyField is to provide an easy way to manage the states of many robots at once just like the real fields to, but only with a small amount of inexpensive equipment. ThriftyField can also keep track of scores entered on tablets via the web application and can generate a near real-time audience view just like an official event.
 
 ## Main Features
