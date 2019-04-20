@@ -2,7 +2,6 @@ var modifier = 1;
 var alliance = "red"
 
 function setScore(score) {
-    console.log('/api/score/' + alliance + "/" + score * modifier);
     $.getJSON('/api/score/' + alliance + "/" + score * modifier, function (data) {
         console.log(data);
       });

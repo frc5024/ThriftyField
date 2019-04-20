@@ -198,8 +198,9 @@ class Arena(object):
         if self.match_state == MatchState.pre_match:
             return "Cannot abort a match that is not running"
         
-        self.match_state = MatchState.post_match
+        self.match_state = MatchState.pre_match
         self.match_aborted = True
+        warn("Match aborted")
     
     def StartMatch(self):
         for station in self.alliance_stations:

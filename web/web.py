@@ -84,3 +84,8 @@ def redScore(number):
 def startMatch():
     arena.StartMatch()
     return "Done"
+
+@app.route("/api/control/stopmatch")
+def stopMatch():
+    arena.AbortMatch()
+    return "Done"
