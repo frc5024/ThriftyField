@@ -1,6 +1,6 @@
 from model.database import Database
 from model.team import Team
-from field.driverstationconnection import DriverStationConnection, ListenForDsUdpPackets, ListenForDriverstations
+from field.driverstationconnection import DriverStationConnection, ListenForDsUdpPackets, ListenForDriverstations, SignalMatchStart
 from consolelog import *
 from game import matchtiming
 from game.matchstate import MatchState
@@ -29,9 +29,9 @@ class Arena(object):
     event_settings = None
     displays = None
     match_aborted = False
-    last_ds_packet_time = None
-    blue_realtime_score = None
-    red_realtime_score = None
+    last_ds_packet_time = 0
+    blue_realtime_score = 0
+    red_realtime_score =0
     alliance_stations = {}
     tba_client = None
     match_start_time = 0
@@ -75,7 +75,7 @@ class Arena(object):
 
         notice("Arena has started")
         while True:
-
+            self.Update()
             time.sleep(arena_loop_period_ms / 1000)
     
     def GetAssignedAllianceStation(self, team_id: int):
@@ -85,6 +85,7 @@ class Arena(object):
         return ""
 
     def Update(self):
+        # print("updating")
         auto = False
         enabled = False
         send_ds_packet = False
@@ -117,8 +118,8 @@ class Arena(object):
         elif self.match_state == MatchState.teleop_period:
             auto = False
             enabled = True
-            if match_time_sec >= matchtiming.auto_duration_sec + match.teleop_duration_sec:
-                self.match_state = MatchState.post_match
+            if match_time_sec >= matchtiming.auto_duration_sec + matchtiming.teleop_duration_sec:
+                self.match_state = MatchState.pre_match
                 auto = False
                 enabled = False
                 send_ds_packet = True
@@ -133,7 +134,7 @@ class Arena(object):
         self.last_match_state = self.match_state
 
         if send_ds_packet or self.last_ds_packet_time >= ds_packet_period_ms:
-            pass
+            self.SendDsPacket(auto, enabled)
     
     def MatchTimeSec(self):
         if self.match_state == MatchState.pre_match or self.match_state == MatchState.start_match:
@@ -154,3 +155,62 @@ class Arena(object):
     def CheckCanStartMatch(self):
         if self.match_state != MatchState.pre_match:
             return "Cannot start match while there is a match in progress or with results still pending"
+    
+    def AssignTeam(self, team_id: int, station: str):
+        if station not in self.alliance_stations:
+            return "Invalid alliance station"
+        
+        dsconn = self.alliance_stations[station].driverstation_connection
+        
+        if dsconn != None and dsconn.team_id == team_id:
+            return None
+        
+        if dsconn != None:
+            dsconn.Close()
+            self.alliance_stations[station].team = None
+            self.alliance_stations[station].driverstation_connection = None
+        
+        if team_id == 0:
+           self.alliance_stations[station].team = None
+           return None
+        
+        team = Team()
+        team.id = team_id
+        self.alliance_stations[station].team = team
+
+        notice(f"Team {team_id} has been assigned to station {station}")
+        return None
+    
+    def ResetMatch(self):
+        if self.match_state != MatchState.pre_match:
+            return "Cannot reset a match while it is in progress"
+        
+        self.match_state = MatchState.pre_match
+        self.match_aborted = False
+        self.alliance_stations["R1"].bypass = False
+        self.alliance_stations["R2"].bypass = False
+        self.alliance_stations["R3"].bypass = False
+        self.alliance_stations["B1"].bypass = False
+        self.alliance_stations["B2"].bypass = False
+        self.alliance_stations["B3"].bypass = False
+    
+    def AbortMatch(self):
+        if self.match_state == MatchState.pre_match:
+            return "Cannot abort a match that is not running"
+        
+        self.match_state = MatchState.post_match
+        self.match_aborted = True
+    
+    def StartMatch(self):
+        for station in self.alliance_stations:
+            station = self.alliance_stations[station]
+
+            if station.driverstation_connection != None:
+                dsconn = station.driverstation_connection
+                SignalMatchStart(dsconn)
+
+                if station.team != None and not station.team.has_connected and dsconn.robot_linked:
+                    station.team.has_connected = True
+        
+        self.match_state = MatchState.start_match
+        notice("Match has been started")

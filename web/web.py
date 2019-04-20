@@ -48,7 +48,7 @@ def fieldInfo():
         station = arena.alliance_stations[station]
 
         if station.team:
-            alliance_stations[station_id]["team"] = {"id":5024}#{"id": station.team.id}
+            alliance_stations[station_id]["team"] = {"id": station.team.id}
             
         if station.driverstation_connection:
             alliance_stations[station_id]["driverstation_connection"] = {
@@ -65,7 +65,7 @@ def fieldInfo():
             "blue": blue_score
         },
         "AllianceStations": alliance_stations,
-        "time":arena.MatchTimeSec()
+        "time":round(arena.MatchTimeSec())
         })
 
 @app.route("/api/score/blue/<number>")
@@ -78,4 +78,9 @@ def blueScore(number):
 def redScore(number):
     global arena
     arena.red_score.points += int(number)
+    return "Done"
+
+@app.route("/api/control/startmatch")
+def startMatch():
+    arena.StartMatch()
     return "Done"

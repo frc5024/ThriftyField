@@ -47,6 +47,9 @@ class DriverStationConnection:
         self.team_id = team_id
         self.alliance_station = alliance_station
     
+    def Close(self):
+        self.tcp_conn.close()
+    
     
     
 def EncodeControlPacket(arena, dsconn: DriverStationConnection):
@@ -235,5 +238,6 @@ def DecodeStatusPacket(dsconn, packet):
     dsconn.ds_robot_trip_time_ms = int(data[1]) / 2
     dsconn.missed_packet_count = int(data[2]) - dsconn.missed_packet_offset
 
+def SignalMatchStart(dsconn):
+    dsconn.missed_packet_offset = dsconn.missed_packet_count
 
-        
