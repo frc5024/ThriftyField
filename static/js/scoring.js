@@ -9,9 +9,18 @@ function setScore(score) {
 
 function setMode(mode) {
     if (mode == "-"){
-        modifier = -1
+        modifier = -1;
     } else {
-        modifier = 1
+        modifier = 1;
+    }
+
+    var elements = document.getElementsByClassName('num');
+    for (var i in elements) {
+        if (modifier == -1) {
+            elements[i].className = "btn btn-sm btn-danger btn-referee num"           
+        } else {
+            elements[i].className = "btn btn-sm btn-success btn-referee num"
+        }
     }
 }
 
