@@ -142,5 +142,25 @@ $(function() {
   // });
 
   console.log("Listening to field");
-  update(); // Recursive function
+  // update(); // Recursive function
+
+  var ws_url = new URL(window.location.href);
+  if (ws_url.hostname == "localhost") {
+      var domain = "127.0.0.1";
+
+  } else {
+      var domain = ws_url.hostname;
+  }
+
+  socket = new WebSocket('ws://' + domain + ':8081');
+  console.log('ws://' + domain + ':8081')
+  socket.onopen = function () {
+      console.log("Connected to websocket");
+  }
+
+  socket.onmessage = function (s) {
+      console.log(s.data);
+      data = JSON.parse(s.data);
+      handleArenaStatus(data);
+  }
 });

@@ -4,6 +4,7 @@ import time
 
 from field.arena import Arena
 from web import web
+from websocket import websocket
 from consolelog import *
 
 notice("Loading configuraiton file")
@@ -13,12 +14,13 @@ event_db_path = "./event.db"
 http_port = 8080
 
 if __name__ == "__main__":
-    arena = Arena(event_db_path)
+    arena = Arena(event_db_path, websocket.server)
 
     web.Init(arena)
     web_thread = Thread(target=web.RunWrapper, args=(http_port, None))
 
     # Start webserver and field
     web_thread.start()
+    websocket.RunWrapper()
     time.sleep(0.5)
     arena.Run()

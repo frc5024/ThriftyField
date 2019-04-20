@@ -5,18 +5,18 @@
 
 var CheesyWebsocket = function(path, events) {
   var that = this;
-  var protocol = "ws://";
-  if (window.location.protocol === "https:") {
-    protocol = "wss://";
-  }
-  var url = protocol + window.location.hostname;
-  if (window.location.port !== "") {
-    url += ":" + window.location.port;
-  }
-  url += path;
+  // var protocol = "ws://";
+  // if (window.location.protocol === "https:") {
+  //   protocol = "wss://";
+  // }
+  // var url = protocol + window.location.hostname;
+  // if (window.location.port !== "") {
+  //   url += ":" + window.location.port;
+  // }
+  url = path;
 
   // Append the page's query string to the websocket URL.
-  url += window.location.search;
+  // url += window.location.search;
 
   // Insert a default error-handling event if a custom one doesn't already exist.
   if (!events.hasOwnProperty("error")) {

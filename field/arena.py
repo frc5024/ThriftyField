@@ -5,6 +5,7 @@ from consolelog import *
 from game import matchtiming
 from game.matchstate import MatchState
 from game.score import Score
+from websocket.notifiers import NotifyAll
 
 import time
 from threading import Thread
@@ -45,8 +46,9 @@ class Arena(object):
     driverstation_listener = None
     driverstation_udp_packet_listener = None
 
-    def __init__(self, db_path):
+    def __init__(self, db_path, ws_server):
         self.database = Database(db_path)
+        self.ws = ws_server
 
         # Set up alliance stations
         self.alliance_stations["R1"] = AllianceStation()
@@ -129,6 +131,7 @@ class Arena(object):
                 # TODO: notify display modes
 
         # TODO: match time notifier
+        NotifyAll(self.ws, self)
 
         self.last_match_time = match_time_sec
         self.last_match_state = self.match_state

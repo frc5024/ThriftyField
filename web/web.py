@@ -7,6 +7,7 @@ log.setLevel(logging.ERROR)
 
 from consolelog import *
 
+
 import json
 config = json.load(open("./config.json", "r"))
 
@@ -22,6 +23,7 @@ def Init(_arena):
 def RunWrapper(port, _):
     app.run(port=port, host="0.0.0.0")
 
+## Webpages ##
 @app.route("/")
 def index():
     return render_template("index.htm")
