@@ -11,7 +11,7 @@ notice("Loading configuraiton file")
 config = json.load(open("./config.json", "r"))
 
 event_db_path = "./event.db"
-http_port = 8080
+http_port = config["webserver_port"]
 
 if __name__ == "__main__":
     arena = Arena(event_db_path, websocket.server)
@@ -20,7 +20,9 @@ if __name__ == "__main__":
     web_thread = Thread(target=web.RunWrapper, args=(http_port, None))
 
     # Start webserver and field
-    web_thread.start()
     websocket.RunWrapper()
+    time.sleep(0.2)
+    web_thread.start()
     time.sleep(0.5)
+    notice(f"Web application is avalibble on port {http_port}")
     arena.Run()
