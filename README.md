@@ -34,6 +34,16 @@ On the field control computer, navigate to [10.0.100.5:8080](http://10.0.100.5:8
 ## Usage
 The following section outlines how to set up the field and score games
 
+### Running the Software
+On the field computer, make sure python3.6 or newer is installed, then install the required libraries with:
+```
+pip3 install -r requirements.txt
+```
+Next, run the program with:
+```
+python3 main.py
+```
+
 ### Field
 The field control panel is split into two sections: Alliance station control, and Game control. 
 
