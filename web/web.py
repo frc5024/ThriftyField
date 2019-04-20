@@ -12,7 +12,7 @@ def Init(_arena):
     arena = _arena 
 
 def RunWrapper(port, _):
-    app.run(port=port)
+    app.run(port=port, host="0.0.0.0")
 
 @app.route("/")
 def index():
@@ -62,3 +62,15 @@ def fieldInfo():
         },
         "AllianceStations": alliance_stations
         })
+
+@app.route("/api/score/blue/<number>")
+def blueScore(number):
+    global arena
+    arena.blue_score.points += int(number)
+    return "Done"
+
+@app.route("/api/score/red/<number>")
+def redScore(number):
+    global arena
+    arena.red_score.points += int(number)
+    return "Done"

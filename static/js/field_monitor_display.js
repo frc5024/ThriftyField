@@ -102,6 +102,17 @@ function sleep(ms) {
   while (new Date().getTime() < expire) { }
   return;
 }
+
+function update() {
+  $.getJSON('/api/fieldinfo', function (data) {
+    console.log(data);
+    handleArenaStatus(data);
+    sleep(3000)
+    update() 
+  });
+  
+}
+
 $(function() {
   // Read the configuration for this display from the URL query string.
   var urlParams = new URLSearchParams(window.location.search);
@@ -122,12 +133,13 @@ $(function() {
   // });
 
   console.log("Listening to field");
-  while (true) {
-    $.getJSON('/api/fieldinfo', function (data) {
-        console.log(data);
-        handleArenaStatus(data);
-    });
+  // while (true) {
+  //   $.getJSON('/api/fieldinfo', function (data) {
+  //       console.log(data);
+  //       handleArenaStatus(data);
+  //   });
 
-    sleep(500);
-  }
+  //   sleep(10000);
+  // }
+  update()
 });
