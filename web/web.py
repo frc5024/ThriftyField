@@ -5,6 +5,8 @@ import logging
 log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
+from consolelog import *
+
 arena = None
 
 def Init(_arena):
@@ -58,6 +60,8 @@ def fieldInfo():
                 "battery_voltage": station.driverstation_connection.battery_voltage,
                 "seconds_since_last_robot_link": station.driverstation_connection.seconds_since_last_robot_link
             }
+        
+        alliance_stations[station_id]["bypass"] = station.bypass
 
     return jsonify({
         "scores": {
@@ -65,6 +69,7 @@ def fieldInfo():
             "blue": blue_score
         },
         "AllianceStations": alliance_stations,
+        "MatchState": arena.match_state,
         "time":round(arena.MatchTimeSec())
         })
 
@@ -93,3 +98,13 @@ def stopMatch():
 @app.route("/api/control/alliancestation/<station>/<team>")
 def allianceStation(station, team):
     return str(arena.AssignTeam(team, station))
+
+@app.route("/api/control/bypass/<station>")
+def bypass(station):
+    if station not in arena.alliance_stations:
+        return "Invalid station"
+    
+    arena.alliance_stations[station].bypass = not arena.alliance_stations[station].bypass
+    notice(f"Bypass on station {station} has been set to {arena.alliance_stations[station].bypass}")
+
+    return "Done"

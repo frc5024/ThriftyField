@@ -114,7 +114,7 @@ function sleep(ms) {
 
 function update() {
   $.getJSON('/api/fieldinfo', function (data) {
-    console.log(data);
+    // console.log(data);
     handleArenaStatus(data);
     sleep(1000)
     update() 
