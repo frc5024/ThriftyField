@@ -92,8 +92,26 @@
                 </div>
             </div>
     </div>
+
+    
+    
+    
     
 </body>
+<script>
+    var abort_sound = new Audio("/static/audio/game_abort.wav");
+    var end_sound  = new Audio("/static/audio/match_end.wav");
+    var endgame_sound  = new Audio("/static/audio/match_endgame.wav");
+    var auto_sound = new Audio("/static/audio/match_start.wav");
+    var teleop_sound= new Audio("/static/audio/teleop_start.wav");
+
+    abort_sound.load();
+    end_sound.load();
+    endgame_sound.load();
+    auto_sound.load();
+    teleop_sound.load();
+</script>
+
 <script src="/static/js/lib/jquery.min.js"></script>
 <script src="/static/js/lib/jquery.json-2.4.min.js"></script>
 <script src="/static/js/lib/jquery.websocket-0.0.1.js"></script>

@@ -10,6 +10,18 @@ var lowBatteryThreshold = 8;
 
 // Handles a websocket message to update the team connection status.
 var handleArenaStatus = function (data) {
+  if (data.sound) {
+    console.log(data.sound)
+    if (data.sound == "auto"){
+      auto_sound.play();
+    } else if (data.sound == "teleop") {
+      teleop_sound.play();
+    } else if (data.sound == "abort") {
+      abort_sound.play();
+    } else if (data.sound == "matchend") {
+      end_sound.play();
+    }
+  }
   $.each(data.AllianceStations, function(station, stationStatus) {
     // Select the DOM elements corresponding to the team station.
     var teamElementPrefix;

@@ -26,7 +26,7 @@ Due to the way that the Driverstation protocol was designed, the field network m
 On the scoring devices, navigate to [10.0.100.5:8080](http://10.0.100.5:8080) in firefox or chrome and tap on the **Scoring** tab at the top, then select the alliance that the divice will be inputting data for.
 
 ### Audience Diaplay
-On any computer hooked up to a projector or display, navigate to [10.0.100.5:8080](http://10.0.100.5:8080) in firefox or chrome, click on the **displays** tab, then select **Main**. Next, move this window to the secondary screen and press `f11` to go into fullscreen mode. Your mouse will be hidden when interacting with this window.
+On any computer hooked up to a projector or display, navigate to [10.0.100.5:8080](http://10.0.100.5:8080) in firefox or chrome, click on the **displays** tab, then select **Main**. Next, move this window to the secondary screen and press `f11` to go into fullscreen mode. Your mouse will be hidden when interacting with this window. If you are unable to hear game sounds, try enabling audio autoplay in your browser.
 
 ### Field Control
 On the field control computer, navigate to [10.0.100.5:8080](http://10.0.100.5:8080) in firefox or chrome then click on the **Field Control** tab at the top.

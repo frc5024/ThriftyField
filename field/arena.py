@@ -41,6 +41,8 @@ class Arena(object):
 
     red_score = Score()
     blue_score = Score()
+
+    current_sound = None
     
 
     driverstation_listener = None
@@ -107,6 +109,7 @@ class Arena(object):
             self.match_state = MatchState.auto_period
             enabled = True
             send_ds_packet = True
+            self.current_sound = "auto"
 
         elif self.match_state == MatchState.auto_period:
             auto = True
@@ -116,6 +119,7 @@ class Arena(object):
                 send_ds_packet = True
                 self.match_state = MatchState.teleop_period
                 enabled = True
+                self.current_sound = "teleop"
 
         elif self.match_state == MatchState.teleop_period:
             auto = False
@@ -125,10 +129,12 @@ class Arena(object):
                 auto = False
                 enabled = False
                 send_ds_packet = True
+                self.current_sound = "matchend"
                 time.sleep(3)
                 self.audience_display_mode = "blank"
                 self.alliance_station_display_mode = "logo"
                 # TODO: notify display modes
+                
 
         # TODO: match time notifier
         NotifyAll(self.ws, self)
@@ -203,6 +209,7 @@ class Arena(object):
         
         self.match_state = MatchState.pre_match
         self.match_aborted = True
+        self.current_sound = "abort"
         warn("Match aborted")
     
     def StartMatch(self):

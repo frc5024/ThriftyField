@@ -32,7 +32,11 @@ def NotifyAll(server, arena):
         },
         "AllianceStations": alliance_stations,
         "MatchState": arena.match_state,
-        "time":round(arena.MatchTimeSec())
+        "time": round(arena.MatchTimeSec()),
+        "sound": arena.current_sound
         })
+    
+    # Reset arena sound
+    arena.current_sound = None
     
     server.send_message_to_all(response)
