@@ -9,7 +9,7 @@ var blueSide;
 var lowBatteryThreshold = 8;
 
 // Handles a websocket message to update the team connection status.
-var handleArenaStatus = function(data) {
+var handleArenaStatus = function (data) {
   $.each(data.AllianceStations, function(station, stationStatus) {
     // Select the DOM elements corresponding to the team station.
     var teamElementPrefix;
@@ -18,25 +18,26 @@ var handleArenaStatus = function(data) {
     } else {
       teamElementPrefix = "#" + blueSide  + station[1];
     }
-    var teamIdElement = $(teamElementPrefix + "Id");
-    var teamDsElement = $(teamElementPrefix + "Ds");
-    var teamRadioElement = $(teamElementPrefix + "Radio");
-    var teamRadioTextElement = $(teamElementPrefix + "Radio span");
-    var teamRobotElement = $(teamElementPrefix + "Robot");
-    var teamBypassElement = $(teamElementPrefix + "Bypass");
+    var teamIdElement = $(teamElementPrefix + "-ID");
+    var teamDsElement = $(teamElementPrefix + "-DS");
+    var teamRadioElement = $(teamElementPrefix + "-Radio");
+    var teamRadioTextElement = $(teamElementPrefix + "-Radio span");
+    var teamRobotElement = $(teamElementPrefix + "-Robot");
+    var teamBypassElement = $(teamElementPrefix + "-Bypass");
 
-    if (stationStatus.Team) {
+    
+    if (stationStatus.team) {
       // Set the team number and status.
-      teamIdElement.text(stationStatus.Team.Id);
+      teamIdElement.text(stationStatus.team.id);
       var status = "no-link";
-      if (stationStatus.Bypass) {
+      if (stationStatus.bypass) {
         status = "";
-      } else if (stationStatus.DsConn) {
-        if (stationStatus.DsConn.RobotLinked) {
+      } else if (stationStatus.driverstation_connection) {
+        if (stationStatus.driverstation_connection.robot_linked) {
           status = "robot-linked";
-        } else if (stationStatus.DsConn.RadioLinked) {
+        } else if (stationStatus.driverstation_connection.radio_linked) {
           status = "radio-linked";
-        } else if (stationStatus.DsConn.DsLinked) {
+        } else if (stationStatus.driverstation_connection.ds_linked) {
           status = "ds-linked";
         }
       }
@@ -48,22 +49,22 @@ var handleArenaStatus = function(data) {
     }
 
 
-    if (stationStatus.DsConn) {
+    if (stationStatus.driverstation_connection) {
       // Format the driver station status box.
-      var dsConn = stationStatus.DsConn;
-      teamDsElement.attr("data-status-ok", dsConn.DsLinked);
+      var driverstation_connection = stationStatus.driverstation_connection;
+      teamDsElement.attr("data-status-ok", driverstation_connection.ds_linked);
 
       // Format the radio status box according to the connection status of the robot radio.
-      var radioOkay = stationStatus.Team && stationStatus.Team.Id === wifiStatus.TeamId && wifiStatus.RadioLinked;
-      teamRadioElement.attr("data-status-ok", radioOkay);
+      // var radioOkay = stationStatus.Team && stationStatus.Team.Id === wifiStatus.TeamId && wifiStatus.RadioLinked;
+      // teamRadioElement.attr("data-status-ok", radioOkay);
 
       // Format the robot status box.
-      var robotOkay = dsConn.BatteryVoltage > lowBatteryThreshold && dsConn.RobotLinked;
+      var robotOkay = driverstation_connection.battery_voltage > lowBatteryThreshold && driverstation_connection.robot_linked;
       teamRobotElement.attr("data-status-ok", robotOkay);
-      if (stationStatus.DsConn.SecondsSinceLastRobotLink > 1 && stationStatus.DsConn.SecondsSinceLastRobotLink < 1000) {
-        teamRobotElement.text(stationStatus.DsConn.SecondsSinceLastRobotLink.toFixed());
+      if (stationStatus.driverstation_connection.seconds_since_last_robot_link > 1 && stationStatus.driverstation_connection.seconds_since_last_robot_link < 1000) {
+        teamRobotElement.text(stationStatus.driverstation_connection.seconds_since_last_robot_link.toFixed());
       } else {
-        teamRobotElement.text(dsConn.BatteryVoltage.toFixed(1) + "V");
+        teamRobotElement.text(driverstation_connection.battery_voltage.toFixed(1) + "V");
       }
     } else {
       teamDsElement.attr("data-status-ok", "");
@@ -71,22 +72,22 @@ var handleArenaStatus = function(data) {
       teamRobotElement.text("RBT");
 
       // Format the robot status box according to whether the AP is configured with the correct SSID.
-      var expectedTeamId = stationStatus.Team ? stationStatus.Team.Id : 0;
-      if (wifiStatus.TeamId === expectedTeamId) {
-        if (wifiStatus.RadioLinked) {
-          teamRadioElement.attr("data-status-ok", true);
-        } else {
-          teamRadioElement.attr("data-status-ok", "");
-        }
-      } else {
-        teamRadioElement.attr("data-status-ok", false);
-      }
+      // var expectedTeamId = stationStatus.Team ? stationStatus.Team.Id : 0;
+      // if (wifiStatus.TeamId === expectedTeamId) {
+      //   if (wifiStatus.RadioLinked) {
+      //     teamRadioElement.attr("data-status-ok", true);
+      //   } else {
+      //     teamRadioElement.attr("data-status-ok", "");
+      //   }
+      // } else {
+      //   teamRadioElement.attr("data-status-ok", false);
+      // }
     }
 
-    if (stationStatus.Estop) {
+    if (stationStatus.estop) {
       teamBypassElement.attr("data-status-ok", false);
       teamBypassElement.text("ES");
-    } else if (stationStatus.Bypass) {
+    } else if (stationStatus.bypass) {
       teamBypassElement.attr("data-status-ok", false);
       teamBypassElement.text("BYP");
     } else {
@@ -96,6 +97,11 @@ var handleArenaStatus = function(data) {
   });
 };
 
+function sleep(ms) {
+  var start = new Date().getTime(), expire = start + ms;
+  while (new Date().getTime() < expire) { }
+  return;
+}
 $(function() {
   // Read the configuration for this display from the URL query string.
   var urlParams = new URLSearchParams(window.location.search);
@@ -111,7 +117,17 @@ $(function() {
   $(".reversible-right").attr("data-reversed", reversed);
 
   // Set up the websocket back to the server.
-  websocket = new CheesyWebsocket("/displays/field_monitor/websocket", {
-    arenaStatus: function(event) { handleArenaStatus(event.data); }
-  });
+  // websocket = new CheesyWebsocket("/displays/field_monitor/websocket", {
+  //   arenaStatus: function(event) { handleArenaStatus(event.data); }
+  // });
+
+  console.log("Listening to field");
+  while (true) {
+    $.getJSON('/api/fieldinfo', function (data) {
+        console.log(data);
+        handleArenaStatus(data);
+    });
+
+    sleep(500);
+  }
 });

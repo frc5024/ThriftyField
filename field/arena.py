@@ -3,7 +3,8 @@ from model.team import Team
 from field.driverstationconnection import DriverStationConnection, ListenForDsUdpPackets, ListenForDriverstations
 from consolelog import *
 from game import matchtiming
-from game.matchstate import MatchState 
+from game.matchstate import MatchState
+from game.score import Score
 
 import time
 from threading import Thread
@@ -36,6 +37,10 @@ class Arena(object):
     match_start_time = 0
     last_match_time_sec = 0
     match_time_sec = 0
+
+    red_score = Score()
+    blue_score = Score()
+    
 
     driverstation_listener = None
     driverstation_udp_packet_listener = None

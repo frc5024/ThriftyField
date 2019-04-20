@@ -1,0 +1,173 @@
+<head>
+    <title>ThriftyField</title>
+    <link rel="stylesheet" href="/static/css/cheesy-arena.css">
+    <link rel="stylesheet" href="/static/css/lib/bootstrap.min.css">
+</head>
+<body>
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                <a class="navbar-brand" href="/">ThriftyField</a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#navbar-collapse-menu">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar-collapse-menu">
+                <ul class="nav navbar-nav">
+                    
+                    <li><a href="/control">Match Control</a></li>
+                    <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Scoring</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/scoring/red">Red</a></li>
+                        <li><a href="/scoring/blue">Blue</a></li>
+                    </ul>
+                    </li>
+                    
+                    <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Displays</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="/displays/main?reversed=true">Main</a></li>
+                        <li><a href="/displays/chroma?reversed=true">Chroma</a></li>
+                    </ul>
+                    </li>
+                </ul>
+                
+                </div>
+            </div>
+        </div>
+    <div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+        <div class="row text-center">
+            <div class="col-lg-6 well well-darkblue">
+            <div class="row form-group">
+                <div class="col-lg-4">Blue Teams</div>
+                <div class="col-lg-2" data-toggle="tooltip" title="Driver Station">DS</div>
+                <div class="col-lg-2" data-toggle="tooltip" title="Robot">Rbt</div>
+                <div class="col-lg-2" data-toggle="tooltip" title="Bypass/Disable">Byp</div>
+            </div>
+                <div class="row form-group" id="statusB1">
+                    <div class="col-lg-1">1 </div>
+                    <div class="col-lg-3">
+                    <input type="number" class="form-control input-sm" onblur="substituteTeam($(this).val(), 'B1');">
+                    </div>
+                    <div class="col-lg-2 col-no-padding"><div class="ds-status"></div></div>
+                    
+                    <div class="col-lg-2 col-no-padding"><div class="robot-status"></div></div>
+                    <div class="col-lg-2 col-no-padding">
+                    <div class="bypass-status" onclick="toggleBypass('B1');"></div>
+                    </div>
+                </div>
+                <div class="row form-group" id="statusB2">
+                    <div class="col-lg-1">2 </div>
+                    <div class="col-lg-3">
+                    <input type="number" class="form-control input-sm" onblur="substituteTeam($(this).val(), 'B2');">
+                    </div>
+                    <div class="col-lg-2 col-no-padding"><div class="ds-status"></div></div>
+                    
+                    <div class="col-lg-2 col-no-padding"><div class="robot-status"></div></div>
+                    <div class="col-lg-2 col-no-padding">
+                    <div class="bypass-status" onclick="toggleBypass('B2');"></div>
+                    </div>
+                </div>
+                <div class="row form-group" id="statusB3">
+                    <div class="col-lg-1">3 </div>
+                    <div class="col-lg-3">
+                    <input type="number" class="form-control input-sm" onblur="substituteTeam($(this).val(), 'B3');">
+                    </div>
+                    <div class="col-lg-2 col-no-padding"><div class="ds-status"></div></div>
+                    
+                    <div class="col-lg-2 col-no-padding"><div class="robot-status"></div></div>
+                    <div class="col-lg-2 col-no-padding">
+                    <div class="bypass-status" onclick="toggleBypass('B3');"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 well well-darkred">
+                <div class="row form-group">
+                    <div class="col-lg-4">Blue Teams</div>
+                    <div class="col-lg-2" data-toggle="tooltip" title="Driver Station">DS</div>
+                    <div class="col-lg-2" data-toggle="tooltip" title="Robot">Rbt</div>
+                    <div class="col-lg-2" data-toggle="tooltip" title="Bypass/Disable">Byp</div>
+                </div>
+                <div class="row form-group" id="statusR1">
+                    <div class="col-lg-1">1 </div>
+                    <div class="col-lg-3">
+                    <input type="number" class="form-control input-sm" onblur="substituteTeam($(this).val(), 'R1');">
+                    </div>
+                    <div class="col-lg-2 col-no-padding"><div class="ds-status"></div></div>
+                    
+                    <div class="col-lg-2 col-no-padding"><div class="robot-status"></div></div>
+                    <div class="col-lg-2 col-no-padding">
+                    <div class="bypass-status" onclick="toggleBypass('R1');"></div>
+                    </div>
+                </div>
+                <div class="row form-group" id="statusR2">
+                    <div class="col-lg-1">2 </div>
+                    <div class="col-lg-3">
+                    <input type="number" class="form-control input-sm" onblur="substituteTeam($(this).val(), 'R2');">
+                    </div>
+                    <div class="col-lg-2 col-no-padding"><div class="ds-status"></div></div>
+                    
+                    <div class="col-lg-2 col-no-padding"><div class="robot-status"></div></div>
+                    <div class="col-lg-2 col-no-padding">
+                    <div class="bypass-status" onclick="toggleBypass('R2');"></div>
+                    </div>
+                </div>
+                <div class="row form-group" id="statusR3">
+                    <div class="col-lg-1">3 </div>
+                    <div class="col-lg-3">
+                    <input type="number" class="form-control input-sm" onblur="substituteTeam($(this).val(), 'R3');">
+                    </div>
+                    <div class="col-lg-2 col-no-padding"><div class="ds-status"></div></div>
+                    
+                    <div class="col-lg-2 col-no-padding"><div class="robot-status"></div></div>
+                    <div class="col-lg-2 col-no-padding">
+                    <div class="bypass-status" onclick="toggleBypass('R3');"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row text-center">
+            <button type="button" id="startMatch" class="btn btn-success btn-lg btn-match-play"
+                onclick="startMatch();" disabled>
+            Start Match
+            </button>
+            <button type="button" id="abortMatch" class="btn btn-primary btn-lg btn-match-play"
+                onclick="abortMatch();" disabled>
+            Abort Match
+            </button>
+            
+            </a>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-3">
+                <p>Game-Specific Data</p>
+                <input type="text" id="gameSpecificData" size="10" />
+                <br /><br />
+                
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+</div>
+    
+<script src="/static/js/lib/jquery.min.js"></script>
+<script src="/static/js/lib/jquery.json-2.4.min.js"></script>
+<script src="/static/js/lib/jquery.websocket-0.0.1.js"></script>
+<script src="/static/js/lib/bootstrap.min.js"></script>
+<script src="/static/js/lib/moment.min.js"></script>
+<script src="/static/js/lib/bootstrap-datetimepicker.min.js"></script>
+<script src="/static/js/lib/handlebars-1.3.0.js"></script>
+<script src="/static/js/match_timing.js"></script>
+<script src="/static/js/match_play.js"></script>
+</body>
+ 

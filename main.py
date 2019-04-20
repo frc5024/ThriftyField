@@ -20,5 +20,5 @@ if __name__ == "__main__":
 
     # Start webserver and field
     web_thread.start()
-    time.sleep(1)
+    time.sleep(0.5)
     arena.Run()
