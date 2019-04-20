@@ -27,8 +27,12 @@ def chromaDisplay():
     return render_template("chroma-display.htm")
 
 @app.route("/control")
-def maychControl():
+def matchControl():
     return render_template("match-control.htm")
+
+@app.route("/scoring")
+def score():
+    return render_template("scoring.htm")
 
 ## API ##
 @app.route("/api/fieldinfo")
@@ -60,7 +64,8 @@ def fieldInfo():
             "red": red_score,
             "blue": blue_score
         },
-        "AllianceStations": alliance_stations
+        "AllianceStations": alliance_stations,
+        "time":arena.MatchTimeSec()
         })
 
 @app.route("/api/score/blue/<number>")

@@ -1,0 +1,52 @@
+  <!DOCTYPE html>
+  <html>
+    <head>
+      <title>Referee Panel -  - Cheesy Arena</title>
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+      <meta name="format-detection" content="telephone=no">
+      <link rel="shortcut icon" href="/static/img/favicon.ico">
+      <link rel="apple-touch-icon" href="/static/img/apple-icon.png">
+      <link href="/static/css/lib/bootstrap.min.css" rel="stylesheet">
+      <link href="/static/css/lib/bootstrap-datetimepicker.min.css" rel="stylesheet">
+      <link href="/static/css/cheesy-arena.css" rel="stylesheet">
+      <link href="/static/css/referee_panel.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="row">
+          <div class="col-xs-9">
+            <h4>Scoring Panel</h4>
+            <div class="row">
+                <a class="btn btn-sm btn-info btn-referee" onclick="setScore(1);">1</a>
+                <a class="btn btn-sm btn-info btn-referee" onclick="setScore(2);">2</a>
+                <a class="btn btn-sm btn-info btn-referee" onclick="setScore(3);">3</a>
+            </div>
+            <div class="row">
+                <a class="btn btn-sm btn-info btn-referee" onclick="setScore(4);">4</a>
+                <a class="btn btn-sm btn-info btn-referee" onclick="setScore(5);">5</a>
+                <a class="btn btn-sm btn-info btn-referee" onclick="setScore(6);">6</a>
+            </div>
+            <div class="row">
+                <a class="btn btn-sm btn-info btn-referee" onclick="setScore(7);">7</a>
+                <a class="btn btn-sm btn-info btn-referee" onclick="setScore(8);">8</a>
+                <a class="btn btn-sm btn-info btn-referee" onclick="setScore(9);">9</a>
+            </div>
+            <div class="row">
+                <a class="btn btn-sm btn-info btn-referee add" onclick="setMode('+');">+</a>
+                <a class="btn btn-sm btn-info btn-referee" onclick="setScore(10);">10</a>
+                <a class="btn btn-sm btn-info btn-referee sub" onclick="setMode('-');">-</a>
+            </div>
+            
+          </div>
+      </div>
+      <script src="/static/js/lib/jquery.min.js"></script>
+      <script src="/static/js/lib/jquery.json-2.4.min.js"></script>
+      <script src="/static/js/lib/jquery.websocket-0.0.1.js"></script>
+      <script src="/static/js/lib/bootstrap.min.js"></script>
+      <script src="/static/js/cheesy-websocket.js"></script>
+      <script src="/static/js/referee_panel.js"></script>
+      <script src="/static/js/scoring.js"></script>
+    </body>
+  </html>
+ 
+  

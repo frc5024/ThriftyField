@@ -25,6 +25,15 @@ var handleArenaStatus = function (data) {
     var teamRobotElement = $(teamElementPrefix + "-Robot");
     var teamBypassElement = $(teamElementPrefix + "-Bypass");
 
+    var redScore = document.getElementById("rscore");
+    var blueScore = document.getElementById("bscore");
+    var timer = document.getElementById("time");
+
+    redScore.innerHTML = data.scores.red;
+    blueScore.innerHTML = data.scores.blue;
+    timer.innerHTML = data.time;
+
+
     
     if (stationStatus.team) {
       // Set the team number and status.
@@ -107,7 +116,7 @@ function update() {
   $.getJSON('/api/fieldinfo', function (data) {
     console.log(data);
     handleArenaStatus(data);
-    sleep(3000)
+    sleep(1000)
     update() 
   });
   
@@ -133,13 +142,5 @@ $(function() {
   // });
 
   console.log("Listening to field");
-  // while (true) {
-  //   $.getJSON('/api/fieldinfo', function (data) {
-  //       console.log(data);
-  //       handleArenaStatus(data);
-  //   });
-
-  //   sleep(10000);
-  // }
-  update()
+  update(); // Recursive function
 });
