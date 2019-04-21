@@ -1,0 +1,28 @@
+var classmodel_1_1match_1_1Match =
+[
+    [ "Save", "classmodel_1_1match_1_1Match.html#a7767c9ac93b16bfd0893e2bce2cf0ec8", null ],
+    [ "blue1", "classmodel_1_1match_1_1Match.html#afb0283e4fbd2b11943475e46ccb30a91", null ],
+    [ "blue1_is_surrogate", "classmodel_1_1match_1_1Match.html#ae05bc38d5676ab5e97956b6e08051c23", null ],
+    [ "blue2", "classmodel_1_1match_1_1Match.html#ad4b3169219cd4063e4e553ebd92043f7", null ],
+    [ "blue2_is_surrogate", "classmodel_1_1match_1_1Match.html#ad1e3aa040549c19cc2d6d68970657909", null ],
+    [ "blue3", "classmodel_1_1match_1_1Match.html#afc1a27c3d24760ef1617bd4b3a7396fe", null ],
+    [ "blue3_is_surrogate", "classmodel_1_1match_1_1Match.html#af74fcb02057328ff1873bdbaa2cad548", null ],
+    [ "display_name", "classmodel_1_1match_1_1Match.html#a5aeac3f614c02dc4db98306ae6e360d5", null ],
+    [ "elim_group", "classmodel_1_1match_1_1Match.html#a348672f5bc7161f649d8bd638cdf664b", null ],
+    [ "elim_instance", "classmodel_1_1match_1_1Match.html#a84645182e6be69e43fcd6bccc1e74746", null ],
+    [ "elim_round", "classmodel_1_1match_1_1Match.html#afa9a711da79b667153b81eeca70e0613", null ],
+    [ "gsm", "classmodel_1_1match_1_1Match.html#a99b90539a27a3c947d78c302dbcba247", null ],
+    [ "id", "classmodel_1_1match_1_1Match.html#adc16ded6200daa90c0978d8b84a8019c", null ],
+    [ "red1", "classmodel_1_1match_1_1Match.html#a987a59b464447064ec8fa6dc7bde33d3", null ],
+    [ "red1_is_surrogate", "classmodel_1_1match_1_1Match.html#a332fa470340b3acb96e193f068d841e3", null ],
+    [ "red2", "classmodel_1_1match_1_1Match.html#a5dc04d3361569c873c7ed502a7e869a9", null ],
+    [ "red2_is_surrogate", "classmodel_1_1match_1_1Match.html#af638ce4a3bbff7c3b07f748051bee07a", null ],
+    [ "red3", "classmodel_1_1match_1_1Match.html#a5fe3e08aec09f8984cc3306419993db2", null ],
+    [ "red3_is_surrogate", "classmodel_1_1match_1_1Match.html#a0b7cdbb6f60889aad41f1572e0ce6dd4", null ],
+    [ "score_committed_ad", "classmodel_1_1match_1_1Match.html#a597e3b9ca8e7ff44e6a0da1ddf9c58fa", null ],
+    [ "started_at", "classmodel_1_1match_1_1Match.html#aac91b4d71218774f25645d0c1b5cbd95", null ],
+    [ "status", "classmodel_1_1match_1_1Match.html#aaadbb354502bcd9b4d01484566345aa8", null ],
+    [ "time", "classmodel_1_1match_1_1Match.html#a9591f91a1aad563f0b624ec00b00d71b", null ],
+    [ "type", "classmodel_1_1match_1_1Match.html#a118bcd9caf8d84ff72cc12cba3211508", null ],
+    [ "winner", "classmodel_1_1match_1_1Match.html#ae1f2481484199150c55042e6462074f6", null ]
+];

@@ -1,0 +1,317 @@
+.TH "arena.Arena" 3 "Sat Apr 20 2019" "Version 2019" "DeepSpace" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+arena.Arena
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits object\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "def \fB__init__\fP (self, db_path, ws_server)"
+.br
+.RI "\fBArena\fP constructor\&. "
+.ti -1c
+.RI "def \fBRun\fP (self)"
+.br
+.ti -1c
+.RI "def \fBGetAssignedAllianceStation\fP"
+.br
+.ti -1c
+.RI "def \fBUpdate\fP (self)"
+.br
+.ti -1c
+.RI "def \fBMatchTimeSec\fP (self)"
+.br
+.ti -1c
+.RI "def \fBSendDsPacket\fP"
+.br
+.ti -1c
+.RI "def \fBCheckCanStartMatch\fP (self)"
+.br
+.ti -1c
+.RI "def \fBAssignTeam\fP"
+.br
+.ti -1c
+.RI "def \fBResetMatch\fP (self)"
+.br
+.ti -1c
+.RI "def \fBAbortMatch\fP (self)"
+.br
+.ti -1c
+.RI "def \fBStartMatch\fP (self)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBws\fP"
+.br
+.ti -1c
+.RI "\fBmatch_state\fP"
+.br
+.ti -1c
+.RI "\fBlast_match_time\fP"
+.br
+.ti -1c
+.RI "\fBlast_match_state\fP"
+.br
+.ti -1c
+.RI "\fBaudience_display_mode\fP"
+.br
+.ti -1c
+.RI "\fBalliance_station_display_mode\fP"
+.br
+.ti -1c
+.RI "\fBmatch_start_time\fP"
+.br
+.ti -1c
+.RI "\fBlast_match_time_sec\fP"
+.br
+.ti -1c
+.RI "\fBmatch_aborted\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBdatabase\fP = None"
+.br
+.ti -1c
+.RI "\fBevent_settings\fP = None"
+.br
+.ti -1c
+.RI "\fBdisplays\fP = None"
+.br
+.ti -1c
+.RI "bool \fBmatch_aborted\fP = False"
+.br
+.ti -1c
+.RI "int \fBlast_ds_packet_time\fP = 0"
+.br
+.ti -1c
+.RI "int \fBblue_realtime_score\fP = 0"
+.br
+.ti -1c
+.RI "int \fBred_realtime_score\fP = 0"
+.br
+.ti -1c
+.RI "dictionary \fBalliance_stations\fP = {}"
+.br
+.ti -1c
+.RI "\fBtba_client\fP = None"
+.br
+.ti -1c
+.RI "int \fBmatch_start_time\fP = 0"
+.br
+.ti -1c
+.RI "int \fBlast_match_time_sec\fP = 0"
+.br
+.ti -1c
+.RI "int \fBmatch_time_sec\fP = 0"
+.br
+.ti -1c
+.RI "\fBred_score\fP = Score()"
+.br
+.ti -1c
+.RI "\fBblue_score\fP = Score()"
+.br
+.ti -1c
+.RI "\fBcurrent_sound\fP = None"
+.br
+.ti -1c
+.RI "\fBdriverstation_listener\fP = None"
+.br
+.ti -1c
+.RI "\fBdriverstation_udp_packet_listener\fP = None"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.PP
+.nf
+The main arena class
+
+This class is used to interface with, and control every component of ThriftyField
+
+.fi
+.PP
+ 
+.PP
+Definition at line 30 of file arena\&.py\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "def arena\&.Arena\&.__init__ ( self,  db_path,  ws_server)"
+
+.PP
+\fBArena\fP constructor\&. 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIdb_path\fP Filepath to the database file 
+.br
+\fIws_server\fP Websocket server object 
+.RE
+.PP
+
+.PP
+Definition at line 60 of file arena\&.py\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "def arena\&.Arena\&.AbortMatch ( self)"
+
+.PP
+Definition at line 215 of file arena\&.py\&.
+.SS "def arena\&.Arena\&.AssignTeam ( self,  team_id)"
+
+.PP
+Definition at line 177 of file arena\&.py\&.
+.SS "def arena\&.Arena\&.CheckCanStartMatch ( self)"
+
+.PP
+Definition at line 173 of file arena\&.py\&.
+.SS "def arena\&.Arena\&.GetAssignedAllianceStation ( self,  team_id)"
+
+.PP
+Definition at line 94 of file arena\&.py\&.
+.SS "def arena\&.Arena\&.MatchTimeSec ( self)"
+
+.PP
+Definition at line 157 of file arena\&.py\&.
+.SS "def arena\&.Arena\&.ResetMatch ( self)"
+
+.PP
+Definition at line 202 of file arena\&.py\&.
+.SS "def arena\&.Arena\&.Run ( self)"
+
+.PP
+Definition at line 80 of file arena\&.py\&.
+.SS "def arena\&.Arena\&.SendDsPacket ( self,  auto)"
+
+.PP
+Definition at line 162 of file arena\&.py\&.
+.SS "def arena\&.Arena\&.StartMatch ( self)"
+
+.PP
+Definition at line 224 of file arena\&.py\&.
+.SS "def arena\&.Arena\&.Update ( self)"
+
+.PP
+Definition at line 100 of file arena\&.py\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "arena\&.Arena\&.alliance_station_display_mode"
+
+.PP
+Definition at line 78 of file arena\&.py\&.
+.SS "dictionary arena\&.Arena\&.alliance_stations = {}\fC [static]\fP"
+
+.PP
+Definition at line 42 of file arena\&.py\&.
+.SS "arena\&.Arena\&.audience_display_mode"
+
+.PP
+Definition at line 77 of file arena\&.py\&.
+.SS "int arena\&.Arena\&.blue_realtime_score = 0\fC [static]\fP"
+
+.PP
+Definition at line 40 of file arena\&.py\&.
+.SS "arena\&.Arena\&.blue_score = Score()\fC [static]\fP"
+
+.PP
+Definition at line 49 of file arena\&.py\&.
+.SS "arena\&.Arena\&.current_sound = None\fC [static]\fP"
+
+.PP
+Definition at line 51 of file arena\&.py\&.
+.SS "arena\&.Arena\&.database = None\fC [static]\fP"
+
+.PP
+Definition at line 35 of file arena\&.py\&.
+.SS "arena\&.Arena\&.displays = None\fC [static]\fP"
+
+.PP
+Definition at line 37 of file arena\&.py\&.
+.SS "arena\&.Arena\&.driverstation_listener = None\fC [static]\fP"
+
+.PP
+Definition at line 54 of file arena\&.py\&.
+.SS "arena\&.Arena\&.driverstation_udp_packet_listener = None\fC [static]\fP"
+
+.PP
+Definition at line 55 of file arena\&.py\&.
+.SS "arena\&.Arena\&.event_settings = None\fC [static]\fP"
+
+.PP
+Definition at line 36 of file arena\&.py\&.
+.SS "int arena\&.Arena\&.last_ds_packet_time = 0\fC [static]\fP"
+
+.PP
+Definition at line 39 of file arena\&.py\&.
+.SS "arena\&.Arena\&.last_match_state"
+
+.PP
+Definition at line 75 of file arena\&.py\&.
+.SS "arena\&.Arena\&.last_match_time"
+
+.PP
+Definition at line 74 of file arena\&.py\&.
+.SS "int arena\&.Arena\&.last_match_time_sec = 0\fC [static]\fP"
+
+.PP
+Definition at line 45 of file arena\&.py\&.
+.SS "arena\&.Arena\&.last_match_time_sec"
+
+.PP
+Definition at line 113 of file arena\&.py\&.
+.SS "bool arena\&.Arena\&.match_aborted = False\fC [static]\fP"
+
+.PP
+Definition at line 38 of file arena\&.py\&.
+.SS "arena\&.Arena\&.match_aborted"
+
+.PP
+Definition at line 207 of file arena\&.py\&.
+.SS "int arena\&.Arena\&.match_start_time = 0\fC [static]\fP"
+
+.PP
+Definition at line 44 of file arena\&.py\&.
+.SS "arena\&.Arena\&.match_start_time"
+
+.PP
+Definition at line 112 of file arena\&.py\&.
+.SS "arena\&.Arena\&.match_state"
+
+.PP
+Definition at line 72 of file arena\&.py\&.
+.SS "int arena\&.Arena\&.match_time_sec = 0\fC [static]\fP"
+
+.PP
+Definition at line 46 of file arena\&.py\&.
+.SS "int arena\&.Arena\&.red_realtime_score = 0\fC [static]\fP"
+
+.PP
+Definition at line 41 of file arena\&.py\&.
+.SS "arena\&.Arena\&.red_score = Score()\fC [static]\fP"
+
+.PP
+Definition at line 48 of file arena\&.py\&.
+.SS "arena\&.Arena\&.tba_client = None\fC [static]\fP"
+
+.PP
+Definition at line 43 of file arena\&.py\&.
+.SS "arena\&.Arena\&.ws"
+
+.PP
+Definition at line 62 of file arena\&.py\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DeepSpace from the source code\&.

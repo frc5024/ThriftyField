@@ -56,6 +56,12 @@ By default the scoring panels are set in addition mode. Pressing any number on s
 
 To subtract from the score, press the **-** button to switch into subtraction mode. Make sure to press **+** when you want to start adding to the score again.
 
+## Building Documentation
+To build the documentation, run the following in the terminal with doxygen installed:
+```
+doxygen doxygen.config
+```
+
 ## Credits
 This project would not have been possible without the [FRCture Project](https://frcture.readthedocs.io/en/latest/). Their wiki made the whole process of network programming and interacting with the Driverstation protocol much easier. 
 

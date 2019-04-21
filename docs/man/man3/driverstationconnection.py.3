@@ -1,0 +1,75 @@
+.TH "field/driverstationconnection.py" 3 "Sat Apr 20 2019" "Version 2019" "DeepSpace" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+field/driverstationconnection.py
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBdriverstationconnection\&.DriverStationConnection\fP"
+.br
+.in -1c
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBdriverstationconnection\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "def \fBdriverstationconnection\&.EncodeControlPacket\fP"
+.br
+.ti -1c
+.RI "def \fBdriverstationconnection\&.SendControlPacket\fP (arena, dsconn)"
+.br
+.ti -1c
+.RI "def \fBdriverstationconnection\&.ListenForDsUdpPackets\fP (arena, _)"
+.br
+.ti -1c
+.RI "def \fBdriverstationconnection\&.ListenForDriverstations\fP (arena, _)"
+.br
+.ti -1c
+.RI "def \fBdriverstationconnection\&.HandleTcpConnection\fP (arena, dsconn)"
+.br
+.ti -1c
+.RI "def \fBdriverstationconnection\&.DecodeStatusPacket\fP (dsconn, packet)"
+.br
+.ti -1c
+.RI "def \fBdriverstationconnection\&.SignalMatchStart\fP (dsconn)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBdriverstationconnection\&.driverstation_tcp_listen_port\fP = 1750"
+.br
+.ti -1c
+.RI "int \fBdriverstationconnection\&.driverstation_udp_send_port\fP = 1121"
+.br
+.ti -1c
+.RI "int \fBdriverstationconnection\&.driverstation_udp_recive_port\fP = 1160"
+.br
+.ti -1c
+.RI "int \fBdriverstationconnection\&.driverstation_tcp_link_timeout_sec\fP = 5"
+.br
+.ti -1c
+.RI "int \fBdriverstationconnection\&.driverstation_dup_link_timeout_sec\fP = 1"
+.br
+.ti -1c
+.RI "int \fBdriverstationconnection\&.max_tcp_packet_bytes\fP = 4096"
+.br
+.ti -1c
+.RI "dictionary \fBdriverstationconnection\&.alliance_station_position_map\fP = {'R1': 0, 'R2': 1, 'R3': 2, 'B1': 3, 'B2': 4, 'B3': 5}"
+.br
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DeepSpace from the source code\&.

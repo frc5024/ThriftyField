@@ -1,0 +1,88 @@
+.TH "web/web.py" 3 "Sat Apr 20 2019" "Version 2019" "DeepSpace" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+web/web.py
+.SH SYNOPSIS
+.br
+.PP
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBweb\&.web\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "def \fBweb\&.web\&.Init\fP (_arena)"
+.br
+.ti -1c
+.RI "def \fBweb\&.web\&.RunWrapper\fP (port, _)"
+.br
+.ti -1c
+.RI "def \fBweb\&.web\&.index\fP ()"
+.br
+.RI "Webpages ##\&. "
+.ti -1c
+.RI "def \fBweb\&.web\&.mainDisplay\fP ()"
+.br
+.ti -1c
+.RI "def \fBweb\&.web\&.chromaDisplay\fP ()"
+.br
+.ti -1c
+.RI "def \fBweb\&.web\&.matchControl\fP ()"
+.br
+.ti -1c
+.RI "def \fBweb\&.web\&.score\fP ()"
+.br
+.ti -1c
+.RI "def \fBweb\&.web\&.apiKey\fP ()"
+.br
+.RI "API ##\&. "
+.ti -1c
+.RI "def \fBweb\&.web\&.fieldInfo\fP ()"
+.br
+.ti -1c
+.RI "def \fBweb\&.web\&.blueScore\fP (number)"
+.br
+.ti -1c
+.RI "def \fBweb\&.web\&.redScore\fP (number)"
+.br
+.ti -1c
+.RI "def \fBweb\&.web\&.startMatch\fP ()"
+.br
+.ti -1c
+.RI "def \fBweb\&.web\&.stopMatch\fP ()"
+.br
+.ti -1c
+.RI "def \fBweb\&.web\&.allianceStation\fP (station, team)"
+.br
+.ti -1c
+.RI "def \fBweb\&.web\&.bypass\fP (station)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBweb\&.web\&.app\fP = Flask(__name__, static_url_path='/static', static_folder='\&.\&./static', template_folder='\&.\&./templates')"
+.br
+.ti -1c
+.RI "\fBweb\&.web\&.log\fP = logging\&.getLogger('werkzeug')"
+.br
+.ti -1c
+.RI "\fBweb\&.web\&.config\fP = json\&.load(open('\&./config\&.json', 'r'))"
+.br
+.ti -1c
+.RI "\fBweb\&.web\&.arena\fP = None"
+.br
+.ti -1c
+.RI "\fBweb\&.web\&.api_key\fP = config['api_key']"
+.br
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DeepSpace from the source code\&.

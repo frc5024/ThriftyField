@@ -1,0 +1,37 @@
+.TH "main.py" 3 "Sat Apr 20 2019" "Version 2019" "DeepSpace" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+main.py
+.SH SYNOPSIS
+.br
+.PP
+.SS "Namespaces"
+
+.in +1c
+.ti -1c
+.RI " \fBmain\fP"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBmain\&.config\fP = json\&.load(open('\&./config\&.json', 'r'))"
+.br
+.ti -1c
+.RI "string \fBmain\&.event_db_path\fP = '\&./event\&.db'"
+.br
+.ti -1c
+.RI "\fBmain\&.http_port\fP = config['webserver_port']"
+.br
+.ti -1c
+.RI "\fBmain\&.arena\fP = Arena(event_db_path, \fBwebsocket\&.server\fP)"
+.br
+.ti -1c
+.RI "\fBmain\&.web_thread\fP = Thread(target=web\&.RunWrapper, args=(http_port, None))"
+.br
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DeepSpace from the source code\&.

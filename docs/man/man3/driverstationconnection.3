@@ -1,0 +1,128 @@
+.TH "driverstationconnection" 3 "Sat Apr 20 2019" "Version 2019" "DeepSpace" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+driverstationconnection
+.SH SYNOPSIS
+.br
+.PP
+.SS "Classes"
+
+.in +1c
+.ti -1c
+.RI "class \fBDriverStationConnection\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "def \fBEncodeControlPacket\fP"
+.br
+.ti -1c
+.RI "def \fBSendControlPacket\fP (arena, dsconn)"
+.br
+.ti -1c
+.RI "def \fBListenForDsUdpPackets\fP (arena, _)"
+.br
+.ti -1c
+.RI "def \fBListenForDriverstations\fP (arena, _)"
+.br
+.ti -1c
+.RI "def \fBHandleTcpConnection\fP (arena, dsconn)"
+.br
+.ti -1c
+.RI "def \fBDecodeStatusPacket\fP (dsconn, packet)"
+.br
+.ti -1c
+.RI "def \fBSignalMatchStart\fP (dsconn)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBdriverstation_tcp_listen_port\fP = 1750"
+.br
+.ti -1c
+.RI "int \fBdriverstation_udp_send_port\fP = 1121"
+.br
+.ti -1c
+.RI "int \fBdriverstation_udp_recive_port\fP = 1160"
+.br
+.ti -1c
+.RI "int \fBdriverstation_tcp_link_timeout_sec\fP = 5"
+.br
+.ti -1c
+.RI "int \fBdriverstation_dup_link_timeout_sec\fP = 1"
+.br
+.ti -1c
+.RI "int \fBmax_tcp_packet_bytes\fP = 4096"
+.br
+.ti -1c
+.RI "dictionary \fBalliance_station_position_map\fP = {'R1': 0, 'R2': 1, 'R3': 2, 'B1': 3, 'B2': 4, 'B3': 5}"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "def driverstationconnection\&.DecodeStatusPacket ( dsconn,  packet)"
+
+.PP
+Definition at line 237 of file driverstationconnection\&.py\&.
+.SS "def driverstationconnection\&.EncodeControlPacket ( arena,  dsconn)"
+
+.PP
+Definition at line 55 of file driverstationconnection\&.py\&.
+.SS "def driverstationconnection\&.HandleTcpConnection ( arena,  dsconn)"
+
+.PP
+Definition at line 221 of file driverstationconnection\&.py\&.
+.SS "def driverstationconnection\&.ListenForDriverstations ( arena,  _)"
+
+.PP
+Definition at line 155 of file driverstationconnection\&.py\&.
+.SS "def driverstationconnection\&.ListenForDsUdpPackets ( arena,  _)"
+
+.PP
+Definition at line 128 of file driverstationconnection\&.py\&.
+.SS "def driverstationconnection\&.SendControlPacket ( arena,  dsconn)"
+
+.PP
+Definition at line 123 of file driverstationconnection\&.py\&.
+.SS "def driverstationconnection\&.SignalMatchStart ( dsconn)"
+
+.PP
+Definition at line 241 of file driverstationconnection\&.py\&.
+.SH "Variable Documentation"
+.PP 
+.SS "dictionary driverstationconnection\&.alliance_station_position_map = {'R1': 0, 'R2': 1, 'R3': 2, 'B1': 3, 'B2': 4, 'B3': 5}"
+
+.PP
+Definition at line 17 of file driverstationconnection\&.py\&.
+.SS "int driverstationconnection\&.driverstation_dup_link_timeout_sec = 1"
+
+.PP
+Definition at line 14 of file driverstationconnection\&.py\&.
+.SS "int driverstationconnection\&.driverstation_tcp_link_timeout_sec = 5"
+
+.PP
+Definition at line 13 of file driverstationconnection\&.py\&.
+.SS "int driverstationconnection\&.driverstation_tcp_listen_port = 1750"
+
+.PP
+Definition at line 10 of file driverstationconnection\&.py\&.
+.SS "int driverstationconnection\&.driverstation_udp_recive_port = 1160"
+
+.PP
+Definition at line 12 of file driverstationconnection\&.py\&.
+.SS "int driverstationconnection\&.driverstation_udp_send_port = 1121"
+
+.PP
+Definition at line 11 of file driverstationconnection\&.py\&.
+.SS "int driverstationconnection\&.max_tcp_packet_bytes = 4096"
+
+.PP
+Definition at line 15 of file driverstationconnection\&.py\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DeepSpace from the source code\&.

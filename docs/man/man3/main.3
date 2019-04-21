@@ -1,0 +1,52 @@
+.TH "main" 3 "Sat Apr 20 2019" "Version 2019" "DeepSpace" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+main
+.SH SYNOPSIS
+.br
+.PP
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBconfig\fP = json\&.load(open('\&./config\&.json', 'r'))"
+.br
+.ti -1c
+.RI "string \fBevent_db_path\fP = '\&./event\&.db'"
+.br
+.ti -1c
+.RI "\fBhttp_port\fP = \fBconfig\fP['webserver_port']"
+.br
+.ti -1c
+.RI "\fBarena\fP = Arena(\fBevent_db_path\fP, \fBwebsocket\&.server\fP)"
+.br
+.ti -1c
+.RI "\fBweb_thread\fP = Thread(target=web\&.RunWrapper, args=(\fBhttp_port\fP, None))"
+.br
+.in -1c
+.SH "Variable Documentation"
+.PP 
+.SS "main\&.arena = Arena(\fBevent_db_path\fP, \fBwebsocket\&.server\fP)"
+
+.PP
+Definition at line 17 of file main\&.py\&.
+.SS "main\&.config = json\&.load(open('\&./config\&.json', 'r'))"
+
+.PP
+Definition at line 11 of file main\&.py\&.
+.SS "string main\&.event_db_path = '\&./event\&.db'"
+
+.PP
+Definition at line 13 of file main\&.py\&.
+.SS "main\&.http_port = \fBconfig\fP['webserver_port']"
+
+.PP
+Definition at line 14 of file main\&.py\&.
+.SS "main\&.web_thread = Thread(target=web\&.RunWrapper, args=(\fBhttp_port\fP, None))"
+
+.PP
+Definition at line 20 of file main\&.py\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DeepSpace from the source code\&.

@@ -1,0 +1,169 @@
+.TH "web.web" 3 "Sat Apr 20 2019" "Version 2019" "DeepSpace" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+web.web
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "def \fBInit\fP (_arena)"
+.br
+.ti -1c
+.RI "def \fBRunWrapper\fP (port, _)"
+.br
+.ti -1c
+.RI "def \fBindex\fP ()"
+.br
+.RI "Webpages ##\&. "
+.ti -1c
+.RI "def \fBmainDisplay\fP ()"
+.br
+.ti -1c
+.RI "def \fBchromaDisplay\fP ()"
+.br
+.ti -1c
+.RI "def \fBmatchControl\fP ()"
+.br
+.ti -1c
+.RI "def \fBscore\fP ()"
+.br
+.ti -1c
+.RI "def \fBapiKey\fP ()"
+.br
+.RI "API ##\&. "
+.ti -1c
+.RI "def \fBfieldInfo\fP ()"
+.br
+.ti -1c
+.RI "def \fBblueScore\fP (number)"
+.br
+.ti -1c
+.RI "def \fBredScore\fP (number)"
+.br
+.ti -1c
+.RI "def \fBstartMatch\fP ()"
+.br
+.ti -1c
+.RI "def \fBstopMatch\fP ()"
+.br
+.ti -1c
+.RI "def \fBallianceStation\fP (station, team)"
+.br
+.ti -1c
+.RI "def \fBbypass\fP (station)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBapp\fP = Flask(__name__, static_url_path='/static', static_folder='\&.\&./static', template_folder='\&.\&./templates')"
+.br
+.ti -1c
+.RI "\fBlog\fP = logging\&.getLogger('werkzeug')"
+.br
+.ti -1c
+.RI "\fBconfig\fP = json\&.load(open('\&./config\&.json', 'r'))"
+.br
+.ti -1c
+.RI "\fBarena\fP = None"
+.br
+.ti -1c
+.RI "\fBapi_key\fP = \fBconfig\fP['api_key']"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "def web\&.web\&.allianceStation ( station,  team)"
+
+.PP
+Definition at line 111 of file web\&.py\&.
+.SS "def web\&.web\&.apiKey ()"
+
+.PP
+API ##\&. 
+.PP
+Definition at line 49 of file web\&.py\&.
+.SS "def web\&.web\&.blueScore ( number)"
+
+.PP
+Definition at line 89 of file web\&.py\&.
+.SS "def web\&.web\&.bypass ( station)"
+
+.PP
+Definition at line 115 of file web\&.py\&.
+.SS "def web\&.web\&.chromaDisplay ()"
+
+.PP
+Definition at line 36 of file web\&.py\&.
+.SS "def web\&.web\&.fieldInfo ()"
+
+.PP
+Definition at line 53 of file web\&.py\&.
+.SS "def web\&.web\&.index ()"
+
+.PP
+Webpages ##\&. 
+.PP
+Definition at line 28 of file web\&.py\&.
+.SS "def web\&.web\&.Init ( _arena)"
+
+.PP
+Definition at line 19 of file web\&.py\&.
+.SS "def web\&.web\&.mainDisplay ()"
+
+.PP
+Definition at line 32 of file web\&.py\&.
+.SS "def web\&.web\&.matchControl ()"
+
+.PP
+Definition at line 40 of file web\&.py\&.
+.SS "def web\&.web\&.redScore ( number)"
+
+.PP
+Definition at line 95 of file web\&.py\&.
+.SS "def web\&.web\&.RunWrapper ( port,  _)"
+
+.PP
+Definition at line 23 of file web\&.py\&.
+.SS "def web\&.web\&.score ()"
+
+.PP
+Definition at line 44 of file web\&.py\&.
+.SS "def web\&.web\&.startMatch ()"
+
+.PP
+Definition at line 101 of file web\&.py\&.
+.SS "def web\&.web\&.stopMatch ()"
+
+.PP
+Definition at line 106 of file web\&.py\&.
+.SH "Variable Documentation"
+.PP 
+.SS "web\&.web\&.api_key = \fBconfig\fP['api_key']"
+
+.PP
+Definition at line 17 of file web\&.py\&.
+.SS "web\&.web\&.app = Flask(__name__, static_url_path='/static', static_folder='\&.\&./static', template_folder='\&.\&./templates')"
+
+.PP
+Definition at line 2 of file web\&.py\&.
+.SS "web\&.web\&.arena = None"
+
+.PP
+Definition at line 14 of file web\&.py\&.
+.SS "web\&.web\&.config = json\&.load(open('\&./config\&.json', 'r'))"
+
+.PP
+Definition at line 12 of file web\&.py\&.
+.SS "web\&.web\&.log = logging\&.getLogger('werkzeug')"
+
+.PP
+Definition at line 5 of file web\&.py\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DeepSpace from the source code\&.

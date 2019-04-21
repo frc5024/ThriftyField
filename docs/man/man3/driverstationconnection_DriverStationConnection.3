@@ -1,0 +1,208 @@
+.TH "driverstationconnection.DriverStationConnection" 3 "Sat Apr 20 2019" "Version 2019" "DeepSpace" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+driverstationconnection.DriverStationConnection
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "def \fB__init__\fP"
+.br
+.ti -1c
+.RI "def \fBClose\fP (self)"
+.br
+.in -1c
+.SS "Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "\fBip_addr\fP"
+.br
+.ti -1c
+.RI "\fBtcp_conn\fP"
+.br
+.ti -1c
+.RI "\fBudp_conn\fP"
+.br
+.ti -1c
+.RI "\fBteam_id\fP"
+.br
+.ti -1c
+.RI "\fBalliance_station\fP"
+.br
+.in -1c
+.SS "Static Public Attributes"
+
+.in +1c
+.ti -1c
+.RI "int \fBteam_id\fP = 0"
+.br
+.ti -1c
+.RI "string \fBalliance_station\fP = ''"
+.br
+.ti -1c
+.RI "bool \fBauto\fP = False"
+.br
+.ti -1c
+.RI "bool \fBenabled\fP = False"
+.br
+.ti -1c
+.RI "bool \fBestop\fP = False"
+.br
+.ti -1c
+.RI "bool \fBds_linked\fP = False"
+.br
+.ti -1c
+.RI "bool \fBradio_linked\fP = False"
+.br
+.ti -1c
+.RI "bool \fBrobot_linked\fP = False"
+.br
+.ti -1c
+.RI "int \fBbattery_voltage\fP = 0"
+.br
+.ti -1c
+.RI "int \fBds_robot_trip_time_ms\fP = 0"
+.br
+.ti -1c
+.RI "int \fBmissed_packet_count\fP = 0"
+.br
+.ti -1c
+.RI "int \fBseconds_since_last_robot_link\fP = 0"
+.br
+.ti -1c
+.RI "int \fBlast_packet_time\fP = 0"
+.br
+.ti -1c
+.RI "int \fBlast_robot_linked_time\fP = 0"
+.br
+.ti -1c
+.RI "int \fBpacket_count\fP = 0"
+.br
+.ti -1c
+.RI "int \fBmissed_packet_offset\fP = 0"
+.br
+.ti -1c
+.RI "tuple \fBtcp_conn\fP = (None, None)"
+.br
+.ti -1c
+.RI "tuple \fBudp_conn\fP = (None, None)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+Definition at line 19 of file driverstationconnection\&.py\&.
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "def driverstationconnection\&.DriverStationConnection\&.__init__ ( self,  team_id)"
+
+.PP
+Definition at line 39 of file driverstationconnection\&.py\&.
+.SH "Member Function Documentation"
+.PP 
+.SS "def driverstationconnection\&.DriverStationConnection\&.Close ( self)"
+
+.PP
+Definition at line 50 of file driverstationconnection\&.py\&.
+.SH "Member Data Documentation"
+.PP 
+.SS "string driverstationconnection\&.DriverStationConnection\&.alliance_station = ''\fC [static]\fP"
+
+.PP
+Definition at line 21 of file driverstationconnection\&.py\&.
+.SS "driverstationconnection\&.DriverStationConnection\&.alliance_station"
+
+.PP
+Definition at line 48 of file driverstationconnection\&.py\&.
+.SS "bool driverstationconnection\&.DriverStationConnection\&.auto = False\fC [static]\fP"
+
+.PP
+Definition at line 22 of file driverstationconnection\&.py\&.
+.SS "int driverstationconnection\&.DriverStationConnection\&.battery_voltage = 0\fC [static]\fP"
+
+.PP
+Definition at line 28 of file driverstationconnection\&.py\&.
+.SS "bool driverstationconnection\&.DriverStationConnection\&.ds_linked = False\fC [static]\fP"
+
+.PP
+Definition at line 25 of file driverstationconnection\&.py\&.
+.SS "int driverstationconnection\&.DriverStationConnection\&.ds_robot_trip_time_ms = 0\fC [static]\fP"
+
+.PP
+Definition at line 29 of file driverstationconnection\&.py\&.
+.SS "bool driverstationconnection\&.DriverStationConnection\&.enabled = False\fC [static]\fP"
+
+.PP
+Definition at line 23 of file driverstationconnection\&.py\&.
+.SS "bool driverstationconnection\&.DriverStationConnection\&.estop = False\fC [static]\fP"
+
+.PP
+Definition at line 24 of file driverstationconnection\&.py\&.
+.SS "driverstationconnection\&.DriverStationConnection\&.ip_addr"
+
+.PP
+Definition at line 40 of file driverstationconnection\&.py\&.
+.SS "int driverstationconnection\&.DriverStationConnection\&.last_packet_time = 0\fC [static]\fP"
+
+.PP
+Definition at line 32 of file driverstationconnection\&.py\&.
+.SS "int driverstationconnection\&.DriverStationConnection\&.last_robot_linked_time = 0\fC [static]\fP"
+
+.PP
+Definition at line 33 of file driverstationconnection\&.py\&.
+.SS "int driverstationconnection\&.DriverStationConnection\&.missed_packet_count = 0\fC [static]\fP"
+
+.PP
+Definition at line 30 of file driverstationconnection\&.py\&.
+.SS "int driverstationconnection\&.DriverStationConnection\&.missed_packet_offset = 0\fC [static]\fP"
+
+.PP
+Definition at line 35 of file driverstationconnection\&.py\&.
+.SS "int driverstationconnection\&.DriverStationConnection\&.packet_count = 0\fC [static]\fP"
+
+.PP
+Definition at line 34 of file driverstationconnection\&.py\&.
+.SS "bool driverstationconnection\&.DriverStationConnection\&.radio_linked = False\fC [static]\fP"
+
+.PP
+Definition at line 26 of file driverstationconnection\&.py\&.
+.SS "bool driverstationconnection\&.DriverStationConnection\&.robot_linked = False\fC [static]\fP"
+
+.PP
+Definition at line 27 of file driverstationconnection\&.py\&.
+.SS "int driverstationconnection\&.DriverStationConnection\&.seconds_since_last_robot_link = 0\fC [static]\fP"
+
+.PP
+Definition at line 31 of file driverstationconnection\&.py\&.
+.SS "tuple driverstationconnection\&.DriverStationConnection\&.tcp_conn = (None, None)\fC [static]\fP"
+
+.PP
+Definition at line 36 of file driverstationconnection\&.py\&.
+.SS "driverstationconnection\&.DriverStationConnection\&.tcp_conn"
+
+.PP
+Definition at line 43 of file driverstationconnection\&.py\&.
+.SS "int driverstationconnection\&.DriverStationConnection\&.team_id = 0\fC [static]\fP"
+
+.PP
+Definition at line 20 of file driverstationconnection\&.py\&.
+.SS "driverstationconnection\&.DriverStationConnection\&.team_id"
+
+.PP
+Definition at line 47 of file driverstationconnection\&.py\&.
+.SS "tuple driverstationconnection\&.DriverStationConnection\&.udp_conn = (None, None)\fC [static]\fP"
+
+.PP
+Definition at line 37 of file driverstationconnection\&.py\&.
+.SS "driverstationconnection\&.DriverStationConnection\&.udp_conn"
+
+.PP
+Definition at line 44 of file driverstationconnection\&.py\&.
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for DeepSpace from the source code\&.

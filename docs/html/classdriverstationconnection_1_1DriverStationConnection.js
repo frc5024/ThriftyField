@@ -1,0 +1,28 @@
+var classdriverstationconnection_1_1DriverStationConnection =
+[
+    [ "__init__", "classdriverstationconnection_1_1DriverStationConnection.html#a380c43864ca4bfe007d531b32d533c9b", null ],
+    [ "Close", "classdriverstationconnection_1_1DriverStationConnection.html#a3dc3b6473af1da97583af710847ae491", null ],
+    [ "alliance_station", "classdriverstationconnection_1_1DriverStationConnection.html#acd830049fb18abaf0092134cc66c4849", null ],
+    [ "alliance_station", "classdriverstationconnection_1_1DriverStationConnection.html#a2790174e896074ca037761bd42b6155f", null ],
+    [ "auto", "classdriverstationconnection_1_1DriverStationConnection.html#a0fa58503f1ddae06e118761ec579fac9", null ],
+    [ "battery_voltage", "classdriverstationconnection_1_1DriverStationConnection.html#a29045ece381d806dbb22ad15a8d86e7e", null ],
+    [ "ds_linked", "classdriverstationconnection_1_1DriverStationConnection.html#a56d7380f7c21376b1f12f90c0e60b85f", null ],
+    [ "ds_robot_trip_time_ms", "classdriverstationconnection_1_1DriverStationConnection.html#af1a740ddcf7e9451b8351645e53d2d19", null ],
+    [ "enabled", "classdriverstationconnection_1_1DriverStationConnection.html#ab64e2af5100bcf2718459926cc95d319", null ],
+    [ "estop", "classdriverstationconnection_1_1DriverStationConnection.html#afa0528b0f79c9177caac0463b48fb1ac", null ],
+    [ "ip_addr", "classdriverstationconnection_1_1DriverStationConnection.html#a01fe7f6e4cc1b77d83827a930fdf2282", null ],
+    [ "last_packet_time", "classdriverstationconnection_1_1DriverStationConnection.html#ac3abb1d39bc84d4a4010b42926369cfd", null ],
+    [ "last_robot_linked_time", "classdriverstationconnection_1_1DriverStationConnection.html#a17ea9b8eacae7b667232ffd17bc96a2f", null ],
+    [ "missed_packet_count", "classdriverstationconnection_1_1DriverStationConnection.html#a0421a202541ee31205d614f8d7acbd34", null ],
+    [ "missed_packet_offset", "classdriverstationconnection_1_1DriverStationConnection.html#a62432501e1cf714699cf6871069b6006", null ],
+    [ "packet_count", "classdriverstationconnection_1_1DriverStationConnection.html#abd6c95d03130612342b4089b55a57e80", null ],
+    [ "radio_linked", "classdriverstationconnection_1_1DriverStationConnection.html#ace2d74fdde94d83fc369eadbc98e6b1b", null ],
+    [ "robot_linked", "classdriverstationconnection_1_1DriverStationConnection.html#ac2f8ea4497174357a4b573489c7a80e1", null ],
+    [ "seconds_since_last_robot_link", "classdriverstationconnection_1_1DriverStationConnection.html#a46d1dded10a4242ccda05e8f4731e093", null ],
+    [ "tcp_conn", "classdriverstationconnection_1_1DriverStationConnection.html#a90bb1cbbd4944112b7f74124294385e9", null ],
+    [ "tcp_conn", "classdriverstationconnection_1_1DriverStationConnection.html#a7ef1b941feaaaa5c92306a0aa5067ccd", null ],
+    [ "team_id", "classdriverstationconnection_1_1DriverStationConnection.html#aa26334b1fb5a71dea99689931b3c2733", null ],
+    [ "team_id", "classdriverstationconnection_1_1DriverStationConnection.html#a4d6197531c3ff55abd1c2bc6641e9c51", null ],
+    [ "udp_conn", "classdriverstationconnection_1_1DriverStationConnection.html#a085f3f8686b4e5261b3f9c80c3521f68", null ],
+    [ "udp_conn", "classdriverstationconnection_1_1DriverStationConnection.html#a60ead21ce287538bda023ed943f8f97a", null ]
+];

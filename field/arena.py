@@ -1,3 +1,4 @@
+## @package field
 from model.database import Database
 from model.team import Team
 from field.driverstationconnection import DriverStationConnection, ListenForDsUdpPackets, ListenForDriverstations, SignalMatchStart
@@ -15,6 +16,7 @@ ds_packet_period_ms = 250
 match_end_score_dwell_sec = 3
 post_timeout_sec = 4
 
+## Wrapper around a driverstation_connection and info about the physical alliance station
 class AllianceStation:
     driverstation_connection = None
     tcp_conn_thread = None
@@ -25,6 +27,8 @@ class AllianceStation:
     def __init__(self):
         self.team = Team()
 
+## The main arena class
+# This class is used to interface with, and control every component of ThriftyField
 class Arena(object):
     database = None
     event_settings = None
@@ -48,6 +52,9 @@ class Arena(object):
     driverstation_listener = None
     driverstation_udp_packet_listener = None
 
+    ## Arena constructor
+    # @param db_path Filepath to the database file
+    # @param ws_server Websocket server object
     def __init__(self, db_path, ws_server):
         self.database = Database(db_path)
         self.ws = ws_server
@@ -68,6 +75,7 @@ class Arena(object):
         self.audience_display_mode = "blank"
         self.alliance_station_display_mode = "match"
     
+    ## Function that starts the field
     def Run(self):
         # listen for driverstations
         self.driverstation_listener = Thread(target=ListenForDriverstations, args=(self, None))
@@ -82,12 +90,16 @@ class Arena(object):
             self.Update()
             time.sleep(arena_loop_period_ms / 1000)
     
+    ## Functionn for retreving the assigned station of a specified team
+    # @param team_id Team number
+    # @return Station id for team
     def GetAssignedAllianceStation(self, team_id: int):
         for station in self.alliance_stations:
             if alliance_stations[station].team != None and alliance_stations[station].team.id == team_id:
                 return station
         return ""
 
+    ## Manages game states and robot connections
     def Update(self):
         # print("updating")
         auto = False
@@ -145,6 +157,8 @@ class Arena(object):
         if send_ds_packet or self.last_ds_packet_time >= ds_packet_period_ms:
             self.SendDsPacket(auto, enabled)
     
+    ## Get the time to be displayed on the match timer
+    # @return Match time
     def MatchTimeSec(self):
         if self.match_state == MatchState.pre_match or self.match_state == MatchState.start_match:
             return 0
