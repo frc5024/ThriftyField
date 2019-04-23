@@ -1,5 +1,5 @@
 import socket
-import time
+import time as pytime
 import datetime as datetime
 from threading import Thread
 from game.matchstate import MatchState
@@ -11,7 +11,7 @@ driverstation_tcp_listen_port = 1750
 driverstation_udp_send_port = 1121
 driverstation_udp_recive_port = 1160
 driverstation_tcp_link_timeout_sec = 5
-driverstation_dup_link_timeout_sec = 1
+driverstation_udp_link_timeout_msec = 1000
 max_tcp_packet_bytes = 4096
 
 alliance_station_position_map = {"R1": 0, "R2": 1, "R3": 2, "B1": 3, "B2": 4, "B3": 5}
@@ -38,17 +38,28 @@ class DriverStationConnection:
 
     def __init__(self, team_id: int, alliance_station: str, tcp_conn: tuple):
         self.ip_addr = tcp_conn[1][0]
-        notice(f"Driverstation from team {team_id} connected from {ip_addr}")
+        notice(f"Driverstation from team {team_id} connected from {self.ip_addr}")
 
         self.tcp_conn = tcp_conn
         self.udp_conn = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        self.udp_conn.bind((ip_addr, driverstation_udp_recive_port))
+        # self.udp_conn.bind((self.ip_addr, driverstation_udp_recive_port))
 
         self.team_id = team_id
         self.alliance_station = alliance_station
     
     def Close(self):
         self.tcp_conn.close()
+    
+    def Update(self, arena):
+        SendControlPacket(arena, self)
+
+        if self.last_packet_time > driverstation_udp_link_timeout_msec:
+            self.ds_linked = False
+            self.radio_linked = False
+            self.robot_linked = False
+            self.battery_voltage = 0
+        
+        self.seconds_since_last_robot_link = self.last_robot_linked_time
     
     
     
@@ -93,13 +104,13 @@ def EncodeControlPacket(arena, dsconn: DriverStationConnection):
     packet[9] = 1
 
     # Date and time
-    packet[10] = ((time.time_ns() / 1000) >> 24) & 0xff
-    packet[11] = ((time.time_ns() / 1000) >> 16) & 0xff
-    packet[12] = ((time.time_ns() / 1000) >> 8) & 0xff
-    packet[13] = (time.time_ns() / 1000) & 0xff
-    packet[14] = time.time() % 60
-    packet[15] = time.time() / 60
-    packet[16] = packet[15] / 60
+    packet[10] = 0#((pytime.time_ns() / 1000) >> 24) & 0xff
+    packet[11] = 0#((pytime.time_ns() / 1000) >> 16) & 0xff
+    packet[12] = 0#((pytime.time_ns() / 1000) >> 8) & 0xff
+    packet[13] = 0#(pytime.time_ns() / 1000) & 0xff
+    packet[14] = round(pytime.time() % 60)
+    packet[15] = round(pytime.time() / 60)
+    packet[16] = round(packet[15] / 60)
     year, month, day = (int(i) for i in str(datetime.datetime.now()).split(" ")[0].split("-"))
     packet[17] = day
     packet[18] = month
@@ -112,12 +123,14 @@ def EncodeControlPacket(arena, dsconn: DriverStationConnection):
     elif arena.match_state == MatchState.teleop_period:
         match_seconds_remaining = game.matchtiming.auto_duration_sec + game.matchtiming.teleop_duration_sec - arena.MatchTimeSec()
 
-    packet[20] = match_seconds_remaining >> 8 & 0xff
-    packet[21] = match_seconds_remaining & 0xff
+    packet[20] = round(match_seconds_remaining) >> 8 & 0xff
+    packet[21] = round(match_seconds_remaining) & 0xff
 
     # Increment packet counter
     dsconn.packet_count += 1
 
+    print(packet)
+    #[0, 0, 0, 6, 0, 3, 1, 0, 1, 1, 0, 0, 0, 0, 36.22621011734009, 25933921.603770353, 432232.02672950586, 23, 4, 119, 0, 15]
     return bytes(packet)
 
 def SendControlPacket(arena, dsconn):
@@ -141,13 +154,13 @@ def ListenForDsUdpPackets(arena, _):
         
         if ds_conn != None:
             ds_conn.ds_linked = True
-            ds_conn.last_packet_time = time.time()
+            ds_conn.last_packet_time = pytime.time()
 
             ds_conn.radio_linked = data[3] & 0x10 != 0
             ds_conn.robot_linked = data[3] & 0x20 != 0
             
             if ds_conn.robot_linked:
-                ds_conn.last_robot_linked_time = time.time()
+                ds_conn.last_robot_linked_time = pytime.time()
 
                 # Battery voltage. Stored as volts * 256
                 ds_conn.battery_voltage = float(data[6]) + float(data[7]) / 256
@@ -180,29 +193,33 @@ def ListenForDriverstations(arena, _):
             conn.close()
             continue
         
-        team_id = int(data[3]) << 8 + int(data[4])
+        team_id = data[3] << 8 | data[4]
 
         assigned_station = arena.GetAssignedAllianceStation(team_id)
 
         if assigned_station == "":
             notice(f"Rejecting connection from team {team_id}, who is not supposed to be on the field")
-            time.sleep(1)
+            pytime.sleep(1)
             conn.close()
             continue
         
         station_status = bytes(0)
 
-        team_string = str(addr[1]).split(".")
-        
-        team_digit_1 = int(team_string[1])
-        team_digit_2 = int(team_string[2])
+        # Issues with networking code. For now, don't warn about wrong station
+        station_status = 0
 
-        station_team_id = team_digit_1 * 100 + team_digit_2
-        if station_team_id != team_id:
-            wrong_assigned_station = arena.GetAssignedAllianceStation(station_team_id)
-            if wrong_assigned_station != "":
-                notice(f"Team {team_id} is in incorrect station {wrong_assigned_station}")
-                station_status = 1
+        # team_string = str(addr[0]).split(".")
+        # print(team_string, addr)
+        
+        # team_digit_1 = int(team_string[1])
+        # team_digit_2 = int(team_string[2])
+
+        # station_team_id = team_digit_1 * 100 + team_digit_2
+        # if station_team_id != team_id:
+        #     wrong_assigned_station = arena.GetAssignedAllianceStation(station_team_id)
+        #     if wrong_assigned_station != "":
+        #         notice(f"Team {team_id} is in incorrect station {wrong_assigned_station}")
+        #         station_status = 1
         
         assignment_packet = [0, 3, 25, 0, 0]
         notice(f"Accepting connection form Team {team_id} in station {assigned_station}")
@@ -220,7 +237,7 @@ def ListenForDriverstations(arena, _):
 
 def HandleTcpConnection(arena, dsconn):
     while True:
-        data = dsconn.tcp_conn.recv(max_tcp_packet_bytes)
+        data = dsconn.tcp_conn[0].recv(max_tcp_packet_bytes)
         if not data:
             error(f"Error reading from connection for team {dsconn.team_id}")
             dsconn.tcp_conn.close()

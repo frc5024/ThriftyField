@@ -16,6 +16,8 @@ ds_packet_period_ms = 250
 match_end_score_dwell_sec = 3
 post_timeout_sec = 4
 
+timeMS = lambda: int(round(time.time() * 1000))
+
 ## Wrapper around a driverstation_connection and info about the physical alliance station
 class AllianceStation:
     driverstation_connection = None
@@ -89,13 +91,14 @@ class Arena(object):
         while True:
             self.Update()
             time.sleep(arena_loop_period_ms / 1000)
+        
     
     ## Functionn for retreving the assigned station of a specified team
     # @param team_id Team number
     # @return Station id for team
     def GetAssignedAllianceStation(self, team_id: int):
         for station in self.alliance_stations:
-            if alliance_stations[station].team != None and alliance_stations[station].team.id == team_id:
+            if self.alliance_stations[station].team != None and str(self.alliance_stations[station].team.id) == str(team_id):
                 return station
         return ""
 
@@ -142,19 +145,18 @@ class Arena(object):
                 enabled = False
                 send_ds_packet = True
                 self.current_sound = "matchend"
+                NotifyAll(self.ws, self)
                 time.sleep(3)
                 self.audience_display_mode = "blank"
                 self.alliance_station_display_mode = "logo"
-                # TODO: notify display modes
                 
 
-        # TODO: match time notifier
         NotifyAll(self.ws, self)
 
         self.last_match_time = match_time_sec
         self.last_match_state = self.match_state
 
-        if send_ds_packet or self.last_ds_packet_time >= ds_packet_period_ms:
+        if send_ds_packet or (timeMS() - self.last_ds_packet_time) >= ds_packet_period_ms:
             self.SendDsPacket(auto, enabled)
     
     ## Get the time to be displayed on the match timer
@@ -162,7 +164,7 @@ class Arena(object):
     def MatchTimeSec(self):
         if self.match_state == MatchState.pre_match or self.match_state == MatchState.start_match:
             return 0
-        return time.time() - self.match_start_time
+        return (time.time() - self.match_start_time) #+ 130
     
     def SendDsPacket(self, auto: bool, enabled: bool):
         for station in self.alliance_stations:
@@ -173,13 +175,15 @@ class Arena(object):
                 dsconn.auto = auto
                 dsconn.enabled = enabled and not station.estop and not station.bypass
                 dsconn.estop = station.estop
-                dsconn.Update()
+                dsconn.Update(self)
+        self.last_ds_packet_time = timeMS()
     
     def CheckCanStartMatch(self):
         if self.match_state != MatchState.pre_match:
             return "Cannot start match while there is a match in progress or with results still pending"
     
     def AssignTeam(self, team_id: int, station: str):
+        team_id = int(team_id)
         if station not in self.alliance_stations:
             return "Invalid alliance station"
         
