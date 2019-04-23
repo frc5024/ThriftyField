@@ -107,10 +107,12 @@ def EncodeControlPacket(arena, dsconn: DriverStationConnection):
     packet[10] = 0#((pytime.time_ns() / 1000) >> 24) & 0xff
     packet[11] = 0#((pytime.time_ns() / 1000) >> 16) & 0xff
     packet[12] = 0#((pytime.time_ns() / 1000) >> 8) & 0xff
-    packet[13] = 0#(pytime.time_ns() / 1000) & 0xff
-    packet[14] = round(pytime.time() % 60)
-    packet[15] = round(pytime.time() / 60)
-    packet[16] = round(packet[15] / 60)
+    packet[13] = 0  #(pytime.time_ns() / 1000) & 0xff
+    
+    time = str(datetime.datetime.now()).split(" ")[1].split(".")[0].split(":")
+    packet[14] = round(int(time[2]))
+    packet[15] = round(int(time[1]))
+    packet[16] = round(int(time[0]))
     year, month, day = (int(i) for i in str(datetime.datetime.now()).split(" ")[0].split("-"))
     packet[17] = day
     packet[18] = month
@@ -129,7 +131,7 @@ def EncodeControlPacket(arena, dsconn: DriverStationConnection):
     # Increment packet counter
     dsconn.packet_count += 1
 
-    print(packet)
+    # print(packet)
     #[0, 0, 0, 6, 0, 3, 1, 0, 1, 1, 0, 0, 0, 0, 36.22621011734009, 25933921.603770353, 432232.02672950586, 23, 4, 119, 0, 15]
     return bytes(packet)
 
@@ -143,11 +145,14 @@ def ListenForDsUdpPackets(arena, _):
     sock.bind(("0.0.0.0", driverstation_udp_recive_port))
     while True:
         data, addr = sock.recvfrom(50)
+        if not data:
+            continue
 
         team_id = int(data[4]) << 8 + int(data[5])
 
         ds_conn = None
         for alliance_station in arena.alliance_stations:
+            alliance_station = arena.alliance_stations[alliance_station]
             if alliance_station.team != None and alliance_station.team.id == team_id:
                 ds_conn = alliance_station.driverstation_connection
                 break
@@ -252,8 +257,8 @@ def HandleTcpConnection(arena, dsconn):
             DecodeStatusPacket(dsconn, status_packet)
 
 def DecodeStatusPacket(dsconn, packet):
-    dsconn.ds_robot_trip_time_ms = int(data[1]) / 2
-    dsconn.missed_packet_count = int(data[2]) - dsconn.missed_packet_offset
+    dsconn.ds_robot_trip_time_ms = int(packet[1]) / 2
+    dsconn.missed_packet_count = int(packet[2]) - dsconn.missed_packet_offset
 
 def SignalMatchStart(dsconn):
     dsconn.missed_packet_offset = dsconn.missed_packet_count
