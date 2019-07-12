@@ -1,5 +1,7 @@
 {
     "webserver_port": 8080,
     "websocket_port": 8081,
-    "api_key":"716301161142355212123164311311951056151111153"
+    "api_key":"716301161142355212123164311311951056151111153",
+    "teleop_only": false,
+    "multibot_mode": false
 }
