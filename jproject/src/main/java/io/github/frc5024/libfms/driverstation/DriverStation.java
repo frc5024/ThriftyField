@@ -1,4 +1,4 @@
-package io.github.frc5024.libfms;
+package io.github.frc5024.libfms.driverstation;
 
 import io.github.frc5024.libfms.interfaces.Estoppable;
 
