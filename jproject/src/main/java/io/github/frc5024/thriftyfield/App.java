@@ -3,12 +3,25 @@
  */
 package io.github.frc5024.thriftyfield;
 
-public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
+public class App implements Runnable {
+    
+    private Arena arena;
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        new App().run();
+    }
+
+    public App() {
+        
+        // Create an arena
+        arena = Arena.getInstance();
+    }
+
+    @Override
+    public void run() {
+        
+        // Start the arena
+        arena.run();
+
     }
 }
