@@ -92,8 +92,8 @@ class Arena(object):
             self.Update()
             time.sleep(arena_loop_period_ms / 1000)
         
-    
-    ## Functionn for retreving the assigned station of a specified team
+
+    ## Function for retreving the assigned station of a specified team
     # @param team_id Team number
     # @return Station id for team
     def GetAssignedAllianceStation(self, team_id: int):
