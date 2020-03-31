@@ -94,7 +94,58 @@ public class ControlPacket {
         this.matchSeconds = matchSeconds;
     }
 
+    /**
+     * Encode this ControlPacket into UDP data to be sent to DriverStation
+     * 
+     * @param station       Alliance station ID
+     * @param dsPacketCount Packet counter value from DriverStation connection
+     * @return Encoded packet
+     */
     public byte[] encode(AllianceStationID station, int dsPacketCount) {
+        // This encoding is as defined at:
+        // https://frcture.readthedocs.io/en/latest/driverstation/fms_to_ds.html
+
+        // Build an output buffer
+        byte[] output = new byte[22];
+
+        // Encode packet number
+        output[0] = (byte) ((dsPacketCount >> 8) & 0xff);
+        output[1] = (byte) (dsPacketCount & 0xff);
+
+        // Encode the protocol version
+        output[2] = (byte) 0x00;
+
+        // Encode robot status flag
+        output[3] = (byte) robotFlag;
+
+        // Encode request byte
+        // (Nobody seems to know what this is used for)
+        output[4] = (byte) 0x00;
+
+        // Encode the alliance station ID
+        output[5] = (byte) station.getID();
+
+        // Encode the match type
+        output[6] = (byte) match.getLevelCode();
+
+        // Encode the match number
+        output[7] = (byte) ((dsPacketCount >> 8) & 0xff);
+        output[8] = (byte) (dsPacketCount & 0xff);
+
+        // Encode the play number
+        output[9] = (byte) (1 + match.getReplayNumber());
+
+        // Encode the system time in microseconds
+        // Java doesn't seem to have a good way of doing this.
+        // We shall just be sneaky and send all 0s
+        // Shh.. nobody will notice ;)
+        output[10] = (byte) 0x00;
+        output[11] = (byte) 0x00;
+        output[12] = (byte) 0x00;
+        output[13] = (byte) 0x00;
+
+        // Encode the date ant time
+        
 
         return null;
     }
