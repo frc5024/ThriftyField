@@ -135,19 +135,31 @@ public class ControlPacket {
         // Encode the play number
         output[9] = (byte) (1 + match.getReplayNumber());
 
+        // Determine microseconds and seconds from unixtime
+        long unixMicros = unixTime * 1000;
+        unixTime /= 1000;
+
         // Encode the system time in microseconds
-        // Java doesn't seem to have a good way of doing this.
-        // We shall just be sneaky and send all 0s
-        // Shh.. nobody will notice ;)
-        output[10] = (byte) 0x00;
-        output[11] = (byte) 0x00;
-        output[12] = (byte) 0x00;
-        output[13] = (byte) 0x00;
+        output[10] = (byte) ((unixMicros >> 24) & 0xff);
+        output[11] = (byte) ((unixMicros >> 16) & 0xff);
+        output[12] = (byte) ((unixMicros >> 8) & 0xff);
+        output[13] = (byte) (unixMicros & 0xff);
 
-        // Encode the date ant time
-        
+        // Encode the date and time
+        output[14] = (byte) (unixTime % 60);
+        output[15] = (byte) ((unixTime / 60) % 60);
+        output[16] = (byte) ((unixTime / 3600) % 24);
+        // Now.. Since this isn't mission critical, I think it is safe to just hardcode
+        // 30 days per month? As far as I know, this info is only used for DS logs.
+        output[17] = (byte) ((unixTime / 604800) % 30);
+        output[18] = (byte) ((unixTime / 2629743) % 12);
+        output[19] = (byte) ((unixTime / 31556926) - 1900);
 
-        return null;
+        // Encode remaining time in the match
+        output[20] = (byte) ((matchSeconds >> 8) & 0xff);
+        output[21] = (byte) (matchSeconds & 0xff);
+
+        return output;
     }
 
 }
