@@ -3,10 +3,10 @@ package io.github.frc5024.libfms.scheduling;
 public class MatchSchedule {
     private static MatchSchedule instance;
 
-    private MatchSchedule(){  
+    private MatchSchedule() {
 
     }
-    
+
     public static MatchSchedule getInstance() {
         if (instance == null) {
             instance = new MatchSchedule();
@@ -14,8 +14,8 @@ public class MatchSchedule {
         return instance;
     }
 
-    public void getCurrentTeamsList() {
-        
+    public TeamsList getCurrentTeamsList() {
+        return null;
     }
-    
+
 }

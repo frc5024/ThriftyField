@@ -92,7 +92,7 @@ public class TeamsList {
                 return AllianceStationID.RED2;
             case 3:
                 return AllianceStationID.RED3;
-            case 10:
+            case 11:
                 return AllianceStationID.BLUE1;
             case 12:
                 return AllianceStationID.BLUE2;
