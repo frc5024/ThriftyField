@@ -13,11 +13,18 @@ public class AllianceStation implements Estoppable {
 
     /**
      * Set a new team for this station. Will clear existing driverstation
+     * 
      * @param team Team to set
      */
     public void setTeam(Team team) {
         this.team = team;
+        bypassed = false;
+        estopped = false;
         driverstation = null;
+    }
+
+    public void connectDriverStation(String hostAddress) {
+        driverstation = new DriverStation(team, hostAddress);
     }
 
     public void estop() {

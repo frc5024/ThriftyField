@@ -13,6 +13,8 @@ repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+
+    maven { setUrl("https://jitpack.io")}
 }
 
 dependencies {
@@ -21,6 +23,9 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+
+    // Math utils
+    implementation 'com.github.ewpratten:ewmath:master-SNAPSHOT'
 }
 
 // Define the main class for the application
