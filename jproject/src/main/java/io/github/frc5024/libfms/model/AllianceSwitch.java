@@ -34,7 +34,9 @@ public class AllianceSwitch {
      */
     public static AllianceSwitch getRedAlliance() {
         if (redAlliance == null) {
-            redAlliance = new AllianceSwitch(new AllianceStation(), new AllianceStation(), new AllianceStation());
+            // Configure the entire alliance
+            redAlliance = new AllianceSwitch(new AllianceStation(AllianceStationID.RED1),
+                    new AllianceStation(AllianceStationID.RED2), new AllianceStation(AllianceStationID.RED3));
         }
         return redAlliance;
     }
@@ -46,7 +48,9 @@ public class AllianceSwitch {
      */
     public static AllianceSwitch getBlueAlliance() {
         if (blueAlliance == null) {
-            blueAlliance = new AllianceSwitch(new AllianceStation(), new AllianceStation(), new AllianceStation());
+            // Configure the entire alliance
+            blueAlliance = new AllianceSwitch(new AllianceStation(AllianceStationID.BLUE1),
+                    new AllianceStation(AllianceStationID.BLUE2), new AllianceStation(AllianceStationID.BLUE3));
         }
         return blueAlliance;
     }
@@ -76,5 +80,14 @@ public class AllianceSwitch {
      */
     public AllianceStation getStation3() {
         return stations[2];
+    }
+
+    /**
+     * Get an ordered list of all alliance stations
+     * 
+     * @return All stations
+     */
+    public AllianceStation[] getAllStations() {
+        return stations;
     }
 }

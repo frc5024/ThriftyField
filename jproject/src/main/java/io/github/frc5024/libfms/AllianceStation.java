@@ -1,6 +1,7 @@
 package io.github.frc5024.libfms;
 
 import io.github.frc5024.libfms.driverstation.DriverStation;
+import io.github.frc5024.libfms.driverstation.ControlPacket.AllianceStationID;
 import io.github.frc5024.libfms.interfaces.Estoppable;
 import io.github.frc5024.libfms.model.Team;
 
@@ -10,6 +11,11 @@ public class AllianceStation implements Estoppable {
     public boolean bypassed;
     public Team team;
     public DriverStation driverstation;
+    private AllianceStationID id;
+
+    public AllianceStation(AllianceStationID id) {
+        this.id = id;
+    }
 
     /**
      * Set a new team for this station. Will clear existing driverstation
@@ -24,7 +30,7 @@ public class AllianceStation implements Estoppable {
     }
 
     public void connectDriverStation(String hostAddress) {
-        driverstation = new DriverStation(team, hostAddress);
+        driverstation = new DriverStation(team, id, hostAddress);
     }
 
     public void estop() {
